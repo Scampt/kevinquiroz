@@ -10,7 +10,7 @@ import Works from './components/Works';
 import Loading from './components/Loading';
 import ContactForm from './components/ContactForm';
 import { LanguageProvider } from './LanguageContext';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
