@@ -10,6 +10,7 @@ import Works from './components/Works';
 import Loading from './components/Loading';
 import ContactForm from './components/ContactForm';
 import { LanguageProvider } from './LanguageContext';
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +31,7 @@ function App() {
           {isLoading && <Loading />}
         </div>
       </Router>
+      <Analytics />
     </LanguageProvider>
   );
 }
