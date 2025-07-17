@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://kevinquiroz.vercel.app/sitemap.xml
