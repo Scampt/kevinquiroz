@@ -496,15 +496,57 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeWF, setActiveWF] = useState(null);
   const [langOpen, setLangOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [mouseXY, setMouseXY] = useState({ x: 0, y: 0 });
+  const [typedRole, setTypedRole] = useState("");
+  const [rolePhase, setRolePhase] = useState("typing");
   const t = langs[lang];
   const th = themes[theme];
   // Workflows are always from ES (they have node data)
   const wfData = langs.es.workflows;
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 40);
+    const fn = () => {
+      setScrolled(window.scrollY > 40);
+      const el = document.documentElement;
+      setScrollProgress((window.scrollY / (el.scrollHeight - el.clientHeight)) * 100);
+    };
     window.addEventListener("scroll", fn); return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  useEffect(() => {
+    const full = t.hero.r1;
+    if (rolePhase === "typing") {
+      if (typedRole.length < full.length) {
+        const tid = setTimeout(() => setTypedRole(full.slice(0, typedRole.length + 1)), 80);
+        return () => clearTimeout(tid);
+      } else {
+        const tid = setTimeout(() => setRolePhase("deleting"), 1800);
+        return () => clearTimeout(tid);
+      }
+    } else {
+      if (typedRole.length > 0) {
+        const tid = setTimeout(() => setTypedRole(full.slice(0, typedRole.length - 1)), 40);
+        return () => clearTimeout(tid);
+      } else { setRolePhase("typing"); }
+    }
+  }, [typedRole, rolePhase, t.hero.r1]);
+
+  useEffect(() => { setTypedRole(""); setRolePhase("typing"); }, [lang]);
+
+  useEffect(() => {
+    const fn = (e) => setMouseXY({ x: e.clientX / window.innerWidth - 0.5, y: e.clientY / window.innerHeight - 0.5 });
+    window.addEventListener("mousemove", fn);
+    return () => window.removeEventListener("mousemove", fn);
+  }, []);
+
+  const tiltCard = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 12;
+    const y = ((e.clientY - r.top) / r.height - 0.5) * -12;
+    e.currentTarget.style.transform = `perspective(700px) rotateX(${y}deg) rotateY(${x}deg) translateY(-4px)`;
+  };
+  const resetCard = (e) => { e.currentTarget.style.transform = ""; };
   const go = id => { document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false); };
 
   return (
@@ -515,23 +557,46 @@ export default function App() {
         ::selection{background:${th.accent}33;color:${th.accent}}
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:${th.bg}}::-webkit-scrollbar-thumb{background:${th.accent}33;border-radius:2px}
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-        @keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,232,154,.3)}70%{box-shadow:0 0 0 8px transparent}}
+        @keyframes nodeGlow{0%,100%{opacity:.6}50%{opacity:1}}
+        .kq-name{background:linear-gradient(135deg,${th.gradStart},${th.gradEnd});-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block}
+        .kq-cursor::after{content:"|";animation:blink 1s ease-in-out infinite;color:${th.accent};font-weight:300;margin-left:1px}
+        .kq-node{animation:nodeGlow 2.5s ease-in-out infinite}
+        .kq-node:nth-child(2n){animation-delay:.6s}
+        .kq-node:nth-child(3n){animation-delay:1.2s}
       `}</style>
 
       {/* Soft gradient orbs */}
       <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }}>
-        <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", background: `radial-gradient(circle, ${th.gradStart}08 0%, transparent 70%)`, top: "-10%", left: "-10%", filter: "blur(80px)" }} />
-        <div style={{ position: "absolute", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, ${th.gradEnd}06 0%, transparent 70%)`, bottom: "10%", right: "-5%", filter: "blur(80px)" }} />
-        <div style={{ position: "absolute", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, ${th.accent}04 0%, transparent 70%)`, top: "50%", left: "40%", filter: "blur(100px)" }} />
+        <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", background: `radial-gradient(circle, ${th.gradStart}08 0%, transparent 70%)`, top: "-10%", left: "-10%", filter: "blur(80px)", transform: `translate(${mouseXY.x * 30}px, ${mouseXY.y * 30}px)`, transition: "transform .8s ease" }} />
+        <div style={{ position: "absolute", width: 500, height: 500, borderRadius: "50%", background: `radial-gradient(circle, ${th.gradEnd}06 0%, transparent 70%)`, bottom: "10%", right: "-5%", filter: "blur(80px)", transform: `translate(${-mouseXY.x * 40}px, ${-mouseXY.y * 40}px)`, transition: "transform .8s ease" }} />
+        <div style={{ position: "absolute", width: 400, height: 400, borderRadius: "50%", background: `radial-gradient(circle, ${th.accent}04 0%, transparent 70%)`, top: "50%", left: "40%", filter: "blur(100px)", transform: `translate(${mouseXY.x * 20}px, ${mouseXY.y * 20}px)`, transition: "transform 1s ease" }} />
       </div>
 
       <WFViewer wf={activeWF} onClose={() => setActiveWF(null)} texts={t.workflows.protection} theme={theme} />
 
+      {/* Scroll progress bar */}
+      <div style={{ position: "fixed", top: 0, left: 0, height: 2, zIndex: 200, background: `linear-gradient(90deg, ${th.gradStart}, ${th.gradEnd})`, width: `${scrollProgress}%`, transition: "width .1s linear", boxShadow: `0 0 8px ${th.accent}66`, pointerEvents: "none" }} />
+
       {/* ═══ NAV ═══ */}
       <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "12px 28px", background: scrolled ? th.navBg : "transparent", backdropFilter: scrolled ? "blur(16px)" : "none", borderBottom: scrolled ? `1px solid ${th.cardBorder}` : "1px solid transparent", transition: "all .3s", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }} onClick={() => go("hero")}>
-          <span style={{ fontFamily: "'JetBrains Mono',monospace", color: th.accent, fontWeight: 700, fontSize: 16 }}>KQ</span>
-          <span style={{ color: th.text3, fontSize: 10, fontFamily: "'JetBrains Mono',monospace" }}>systems.engineer</span>
+        <div style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8 }} onClick={() => go("hero")}>
+          <svg width="32" height="32" viewBox="0 0 100 100" style={{ borderRadius: 6, flexShrink: 0 }}>
+            <defs>
+              <linearGradient id="kqLogoG" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor={th.gradStart} />
+                <stop offset="100%" stopColor={th.gradEnd} />
+              </linearGradient>
+            </defs>
+            <rect width="100" height="100" rx="20" fill={th.bg2} stroke={th.accent + "33"} strokeWidth="2" />
+            <text x="50" y="68" fontFamily="'Arial Black', sans-serif" fontSize="44" fontWeight="900" fill="url(#kqLogoG)" textAnchor="middle">KQ</text>
+          </svg>
+          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
+            <span style={{ fontFamily: "'JetBrains Mono',monospace", color: th.accent, fontWeight: 700, fontSize: 13 }}>Kevin Quiroz</span>
+            <span style={{ color: th.text3, fontSize: 9, fontFamily: "'JetBrains Mono',monospace" }}>systems.engineer</span>
+          </div>
         </div>
         <div className="dnav" style={{ display: "flex", alignItems: "center", gap: 20 }}>
           {t.nav.map((n, i) => <span key={i} onClick={() => go(t.keys[i])} style={{ color: th.text2, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", cursor: "pointer", transition: "color .3s", fontWeight: 500 }} onMouseEnter={e => e.target.style.color = th.accent} onMouseLeave={e => e.target.style.color = th.text2}>{n}</span>)}
@@ -543,7 +608,7 @@ export default function App() {
           </div>
           {/* Language selector */}
           <div style={{ position: "relative" }}>
-            <button onClick={() => setLangOpen(!langOpen)} style={{ background: th.glow, border: `1px solid ${th.cardBorder}`, padding: "3px 8px", borderRadius: 6, fontSize: 18, cursor: "pointer", lineHeight: 1, display: "flex", alignItems: "center" }}>
+            <button onClick={() => setLangOpen(!langOpen)} style={{ background: th.glow, border: `1px solid ${th.cardBorder}`, color: th.text, padding: "3px 8px", borderRadius: 6, fontSize: 18, cursor: "pointer", lineHeight: 1, display: "flex", alignItems: "center" }}>
               {t.flag}
             </button>
             {langOpen && (
@@ -584,41 +649,82 @@ export default function App() {
       </div>}
 
       <style>{`
+        @media(max-width:900px){
+          #hero > div{gap:28px!important}
+        }
         @media(max-width:768px){
           .dnav{display:none!important}
           .ham{display:block!important}
-          #hero > div{padding-top:90px!important;padding-bottom:50px!important}
+          #hero > div{
+            flex-direction:column-reverse!important;
+            align-items:center!important;
+            text-align:center!important;
+            padding-top:100px!important;
+            padding-bottom:56px!important;
+            gap:24px!important
+          }
+          .hero-avatar{width:100%!important;max-width:260px!important}
+          .hero-avatar > div{width:100%!important;max-width:240px!important;margin:0 auto!important}
+          .hero-text{
+            display:flex!important;flex-direction:column!important;align-items:center!important;
+            width:100%!important;flex:unset!important
+          }
+          .hero-text > div{justify-content:center!important}
           #about > div,#services > div,#workflows > div,
           #stack > div,#projects > div,#contact > div,
           #systems > div,#philosophy > div{
             padding-top:56px!important;padding-bottom:56px!important
           }
+          #about > div > div{grid-template-columns:1fr!important}
+          #systems > div > div{justify-content:flex-start!important}
         }
         @media(max-width:480px){
-          #hero > div{padding-top:80px!important;padding-left:20px!important;padding-right:20px!important}
+          #hero > div{
+            padding-top:88px!important;
+            padding-left:16px!important;
+            padding-right:16px!important
+          }
+          .hero-avatar > div{max-width:180px!important}
           #about > div,#services > div,#workflows > div,
           #stack > div,#projects > div,#contact > div,
           #systems > div,#philosophy > div{
-            padding-left:20px!important;padding-right:20px!important
+            padding-left:16px!important;padding-right:16px!important
+          }
+          #services > div > div,#workflows > div > div > div > div,
+          #projects > div > div{
+            grid-template-columns:1fr!important
           }
         }
       `}</style>
 
       {/* ═══ HERO ═══ */}
       <section id="hero" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", position: "relative", zIndex: 1 }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "120px 28px 80px", animation: "fadeUp .85s ease" }}>
-          <p style={{ fontFamily: "'JetBrains Mono',monospace", color: th.accent, fontSize: 13, letterSpacing: 2, marginBottom: 12 }}>{t.hero.hi}</p>
-          <h1 style={{ fontSize: "clamp(40px,8vw,82px)", fontWeight: 900, lineHeight: .95, marginBottom: 6, background: `linear-gradient(135deg, ${th.gradStart} 0%, ${th.gradEnd} 100%)`, WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent", color: "transparent", backgroundSize: "200% 200%", animation: "gradShift 6s ease infinite" }}>{t.hero.name}</h1>
-          <h2 style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "clamp(12px,2vw,17px)", fontWeight: 400, color: th.text2, marginBottom: 4, letterSpacing: .5 }}>{t.hero.r1}</h2>
-          <h2 style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "clamp(12px,2vw,17px)", fontWeight: 400, color: th.text3, marginBottom: 24 }}>{t.hero.r2}</h2>
-          <p style={{ fontSize: "clamp(14px,1.8vw,18px)", color: th.text2, maxWidth: 580, lineHeight: 1.7, marginBottom: 8 }}>{t.hero.desc}</p>
-          <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 11, color: th.text3, marginBottom: 32 }}>{t.hero.micro}</p>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 32 }}>
-            <button onClick={() => go("workflows")} style={{ padding: "12px 28px", background: `linear-gradient(135deg, ${th.gradStart}, ${th.gradEnd})`, color: theme === "dark" ? "#0a0a0f" : "#fff", border: "none", borderRadius: 100, fontWeight: 700, fontSize: 13, cursor: "pointer", transition: "transform .3s, box-shadow .3s" }} onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = `0 6px 24px ${th.accent}33`; }} onMouseLeave={e => { e.target.style.transform = ""; e.target.style.boxShadow = ""; }}>{t.hero.cta1} →</button>
-            <button onClick={() => go("contact")} style={{ padding: "12px 28px", background: "transparent", color: th.accent, border: `1px solid ${th.accent}44`, borderRadius: 100, fontWeight: 600, fontSize: 13, cursor: "pointer", transition: "all .3s" }} onMouseEnter={e => { e.target.style.borderColor = th.accent; e.target.style.background = th.glow; }} onMouseLeave={e => { e.target.style.borderColor = th.accent + "44"; e.target.style.background = "transparent"; }}>{t.hero.cta2}</button>
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "120px 28px 80px", animation: "fadeUp .85s ease", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 40, flexWrap: "wrap" }}>
+          {/* Text */}
+          <div className="hero-text" style={{ flex: "1 1 340px", minWidth: 0 }}>
+            <p style={{ fontFamily: "'JetBrains Mono',monospace", color: th.accent, fontSize: 13, letterSpacing: 2, marginBottom: 12 }}>{t.hero.hi}</p>
+            <h1 className="kq-name" style={{ fontSize: "clamp(40px,8vw,82px)", fontWeight: 900, lineHeight: .95, marginBottom: 6 }}>{t.hero.name}</h1>
+            <h2 className="kq-cursor" style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "clamp(12px,2vw,17px)", fontWeight: 400, color: th.text2, marginBottom: 4, letterSpacing: .5 }}>{typedRole || "\u00A0"}</h2>
+            <h2 style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "clamp(12px,2vw,17px)", fontWeight: 400, color: th.text3, marginBottom: 24 }}>{t.hero.r2}</h2>
+            <p style={{ fontSize: "clamp(14px,1.8vw,18px)", color: th.text2, maxWidth: 520, lineHeight: 1.7, marginBottom: 8 }}>{t.hero.desc}</p>
+            <p style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 11, color: th.text3, marginBottom: 32 }}>{t.hero.micro}</p>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 32 }}>
+              <button onClick={() => go("workflows")} style={{ padding: "12px 28px", background: `linear-gradient(135deg, ${th.gradStart}, ${th.gradEnd})`, color: theme === "dark" ? "#0a0a0f" : "#fff", border: "none", borderRadius: 100, fontWeight: 700, fontSize: 13, cursor: "pointer", transition: "transform .3s, box-shadow .3s" }} onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.boxShadow = `0 6px 24px ${th.accent}33`; }} onMouseLeave={e => { e.target.style.transform = ""; e.target.style.boxShadow = ""; }}>{t.hero.cta1} →</button>
+              <button onClick={() => go("contact")} style={{ padding: "12px 28px", background: "transparent", color: th.accent, border: `1px solid ${th.accent}44`, borderRadius: 100, fontWeight: 600, fontSize: 13, cursor: "pointer", transition: "all .3s" }} onMouseEnter={e => { e.target.style.borderColor = th.accent; e.target.style.background = th.glow; }} onMouseLeave={e => { e.target.style.borderColor = th.accent + "44"; e.target.style.background = "transparent"; }}>{t.hero.cta2}</button>
+            </div>
+            <div style={{ display: "flex", gap: 14 }}>
+              {socials.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" title={s.name} style={{ color: th.text3, transition: "color .3s" }} onMouseEnter={e => e.currentTarget.style.color = th.accent} onMouseLeave={e => e.currentTarget.style.color = th.text3}><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d={s.d} /></svg></a>)}
+            </div>
           </div>
-          <div style={{ display: "flex", gap: 14 }}>
-            {socials.map(s => <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" title={s.name} style={{ color: th.text3, transition: "color .3s" }} onMouseEnter={e => e.currentTarget.style.color = th.accent} onMouseLeave={e => e.currentTarget.style.color = th.text3}><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d={s.d} /></svg></a>)}
+          {/* Avatar */}
+          <div className="hero-avatar" style={{ flex: "0 0 auto", display: "flex", justifyContent: "center" }}>
+            <div style={{ position: "relative", width: "clamp(200px,26vw,340px)" }}>
+              {/* Ambient glow */}
+              <div style={{ position: "absolute", inset: -32, borderRadius: "50%", background: `radial-gradient(circle, ${th.gradStart}28 0%, transparent 65%)`, filter: "blur(28px)", pointerEvents: "none" }} />
+              {/* Gradient ring */}
+              <div style={{ position: "absolute", inset: -3, borderRadius: "50% 50% 50% 50% / 55% 55% 45% 45%", background: `linear-gradient(135deg, ${th.gradStart}99, ${th.gradEnd}66, ${th.gradStart}44)`, pointerEvents: "none" }} />
+              <img src="/avatar.png" alt="Kevin Quiroz" style={{ width: "100%", borderRadius: "50% 50% 50% 50% / 55% 55% 45% 45%", position: "relative", display: "block", objectFit: "cover", animation: "float 6s ease-in-out infinite" }} />
+            </div>
           </div>
         </div>
       </section>
@@ -645,8 +751,15 @@ export default function App() {
             </div>
           </div>
           <div>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
+              <div style={{ position: "relative", width: "100%", maxWidth: 320 }}>
+                {/* Subtle glow */}
+                <div style={{ position: "absolute", inset: -24, borderRadius: 28, background: `radial-gradient(ellipse at 50% 60%, ${th.accent}12 0%, transparent 70%)`, filter: "blur(24px)", pointerEvents: "none" }} />
+                <img src="/me.png" alt="Kevin Quiroz" style={{ width: "100%", borderRadius: 16, border: "none", position: "relative", display: "block", objectFit: "cover", boxShadow: `0 8px 32px rgba(0,0,0,.28)`, animation: "float 6s ease-in-out infinite", animationDelay: "1s" }} />
+              </div>
+            </div>
             <p style={{ fontFamily: "'JetBrains Mono',monospace", color: th.accent, fontSize: 10, letterSpacing: 2, marginBottom: 14 }}>{t.about.expLabel}</p>
-            {t.about.exp.map((e, i) => <div key={i} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 12, padding: 22, marginBottom: 12, backdropFilter: "blur(8px)", transition: "all .3s" }}>
+            {t.about.exp.map((e, i) => <div key={i} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 12, padding: 22, marginBottom: 12, backdropFilter: "blur(8px)", transition: "all .4s cubic-bezier(.16,1,.3,1)", transformStyle: "preserve-3d" }} onMouseMove={tiltCard} onMouseLeave={resetCard}>
               <h4 style={{ color: th.white, fontSize: 13, fontWeight: 700, marginBottom: 2 }}>{e.t}</h4>
               <p style={{ fontFamily: "'JetBrains Mono',monospace", color: th.accent, fontSize: 10, marginBottom: 8 }}>{e.d}</p>
               <p style={{ color: th.text2, fontSize: 12, lineHeight: 1.6 }}>{e.desc}</p>
@@ -661,7 +774,7 @@ export default function App() {
         <h2 style={{ fontSize: "clamp(24px,4vw,40px)", fontWeight: 800, color: th.white, marginBottom: 8 }}>{t.services.title}</h2>
         <p style={{ color: th.text2, fontSize: "clamp(13px,1.5vw,16px)", marginBottom: 36 }}>{t.services.sub}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))", gap: 16 }}>
-          {t.services.items.map((s, i) => <div key={i} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 12, padding: 24, backdropFilter: "blur(8px)", transition: "all .4s cubic-bezier(.16,1,.3,1)" }} onMouseEnter={e => { e.currentTarget.style.borderColor = th.accent + "33"; e.currentTarget.style.transform = "translateY(-3px)"; }} onMouseLeave={e => { e.currentTarget.style.borderColor = th.cardBorder; e.currentTarget.style.transform = ""; }}>
+          {t.services.items.map((s, i) => <div key={i} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 12, padding: 24, backdropFilter: "blur(8px)", transition: "all .4s cubic-bezier(.16,1,.3,1)", transformStyle: "preserve-3d" }} onMouseMove={tiltCard} onMouseLeave={e => { resetCard(e); e.currentTarget.style.borderColor = th.cardBorder; }} onMouseEnter={e => e.currentTarget.style.borderColor = th.accent + "44"}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
               <span style={{ fontSize: 22 }}>{s.icon}</span>
               <h3 style={{ color: th.white, fontSize: 15, fontWeight: 700 }}>{s.t}</h3>
@@ -685,9 +798,9 @@ export default function App() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))", gap: 14 }}>
               {esCat.wfs.map((wf, wi) => {
                 const tWf = tCat.wfs?.[wi] || wf;
-                return <div key={wi} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderLeft: `3px solid ${wf.color}44`, borderRadius: 12, padding: 20, backdropFilter: "blur(8px)", transition: "all .3s" }} onMouseEnter={e => { e.currentTarget.style.borderColor = wf.color + "44"; e.currentTarget.style.transform = "translateY(-2px)"; }} onMouseLeave={e => { e.currentTarget.style.borderColor = th.cardBorder; e.currentTarget.style.borderLeftColor = wf.color + "44"; e.currentTarget.style.transform = ""; }}>
+                return <div key={wi} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderLeft: `3px solid ${wf.color}44`, borderRadius: 12, padding: 20, backdropFilter: "blur(8px)", transition: "all .4s cubic-bezier(.16,1,.3,1)", transformStyle: "preserve-3d" }} onMouseMove={tiltCard} onMouseLeave={e => { resetCard(e); e.currentTarget.style.borderLeftColor = wf.color + "44"; }} onMouseEnter={e => e.currentTarget.style.borderLeftColor = wf.color}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: wf.color }} />
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: wf.color, animation: "pulse 2s ease-in-out infinite", boxShadow: `0 0 0 0 ${wf.color}66` }} />
                     <h4 style={{ color: th.white, fontSize: 13, fontWeight: 700 }}>{tWf.name}</h4>
                   </div>
                   <p style={{ color: th.text3, fontSize: 11, lineHeight: 1.5, marginBottom: 12 }}>{tWf.desc.slice(0, 120)}...</p>
@@ -712,7 +825,7 @@ export default function App() {
         <p style={{ color: th.text2, marginBottom: 32, fontSize: 14 }}>{t.systems.sub}</p>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 6 }}>
           {t.systems.nodes.map((n, i) => <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            <span style={{ fontFamily: "'JetBrains Mono',monospace", padding: "8px 16px", background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 6, fontSize: 11, color: th.accent, backdropFilter: "blur(8px)" }}>{n}</span>
+            <span className="kq-node" style={{ fontFamily: "'JetBrains Mono',monospace", padding: "8px 16px", background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 6, fontSize: 11, color: th.accent, backdropFilter: "blur(8px)", transition: "all .3s", cursor: "default" }} onMouseEnter={e => { e.target.style.background = th.accent + "18"; e.target.style.boxShadow = `0 0 14px ${th.accent}44`; e.target.style.borderColor = th.accent + "55"; }} onMouseLeave={e => { e.target.style.background = th.card; e.target.style.boxShadow = ""; e.target.style.borderColor = th.cardBorder; }}>{n}</span>
             {i < t.systems.nodes.length - 1 && <span style={{ color: th.accent + "44", fontSize: 14 }}>→</span>}
           </span>)}
         </div>
@@ -726,7 +839,7 @@ export default function App() {
           {Object.entries(stackData).map(([cat, tools]) => <div key={cat}>
             <p style={{ fontFamily: "'JetBrains Mono',monospace", color: th.accent, fontSize: 9, letterSpacing: 2, marginBottom: 10, textTransform: "uppercase" }}>{cat}</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-              {tools.map(tool => <span key={tool} style={{ padding: "5px 12px", borderRadius: 6, background: th.card, border: `1px solid ${th.cardBorder}`, fontSize: 11, fontFamily: "'JetBrains Mono',monospace", color: th.text2, backdropFilter: "blur(8px)", transition: "all .3s", cursor: "default" }} onMouseEnter={e => { e.target.style.borderColor = th.accent + "44"; e.target.style.color = th.accent; }} onMouseLeave={e => { e.target.style.borderColor = th.cardBorder; e.target.style.color = th.text2; }}>{tool}</span>)}
+              {tools.map(tool => <span key={tool} style={{ padding: "5px 12px", borderRadius: 6, background: th.card, border: `1px solid ${th.cardBorder}`, fontSize: 11, fontFamily: "'JetBrains Mono',monospace", color: th.text2, backdropFilter: "blur(8px)", transition: "all .3s", cursor: "default" }} onMouseEnter={e => { e.target.style.borderColor = th.accent + "66"; e.target.style.color = th.accent; e.target.style.boxShadow = `0 0 10px ${th.accent}22`; e.target.style.transform = "translateY(-2px)"; }} onMouseLeave={e => { e.target.style.borderColor = th.cardBorder; e.target.style.color = th.text2; e.target.style.boxShadow = ""; e.target.style.transform = ""; }}>{tool}</span>)}
             </div>
           </div>)}
         </div>
@@ -738,7 +851,7 @@ export default function App() {
         <h2 style={{ fontSize: "clamp(24px,4vw,40px)", fontWeight: 800, color: th.white, marginBottom: 8 }}>{t.projects.title}</h2>
         <p style={{ color: th.text2, fontSize: 14, marginBottom: 32 }}>{t.projects.sub}</p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,300px),1fr))", gap: 16 }}>
-          {t.projects.items.map((p, i) => <div key={i} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 12, padding: 22, backdropFilter: "blur(8px)", display: "flex", flexDirection: "column", transition: "all .3s" }} onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"} onMouseLeave={e => e.currentTarget.style.transform = ""}>
+          {t.projects.items.map((p, i) => <div key={i} style={{ background: th.card, border: `1px solid ${th.cardBorder}`, borderRadius: 12, padding: 22, backdropFilter: "blur(8px)", display: "flex", flexDirection: "column", transition: "all .4s cubic-bezier(.16,1,.3,1)", transformStyle: "preserve-3d" }} onMouseMove={tiltCard} onMouseLeave={resetCard}>
             <span style={{ fontFamily: "'JetBrains Mono',monospace", color: th.text3, fontSize: 9 }}>{String(i + 1).padStart(2, "0")}</span>
             <h3 style={{ color: th.white, fontSize: 15, fontWeight: 700, marginBottom: 8, marginTop: 2 }}>{p.t}</h3>
             <p style={{ color: th.text2, fontSize: 12, lineHeight: 1.6, flex: 1, marginBottom: 12 }}>{p.desc}</p>
@@ -757,7 +870,7 @@ export default function App() {
             <span style={{ color: th.accent, fontSize: 8 }}>◆</span>{tr}
           </span>)}
         </div>
-        {t.philosophy.rules.map((r, i) => <p key={i} style={{ fontFamily: "'JetBrains Mono',monospace", color: th.text3, fontSize: "clamp(12px,1.6vw,15px)", padding: "12px 0", borderBottom: `1px solid ${th.cardBorder}`, transition: "color .3s", cursor: "default" }} onMouseEnter={e => e.target.style.color = th.accent} onMouseLeave={e => e.target.style.color = th.text3}>{r}</p>)}
+        {t.philosophy.rules.map((r, i) => <p key={i} style={{ fontFamily: "'JetBrains Mono',monospace", color: th.text3, fontSize: "clamp(12px,1.6vw,15px)", padding: "12px 0", paddingLeft: 0, borderBottom: `1px solid ${th.cardBorder}`, transition: "all .3s", cursor: "default" }} onMouseEnter={e => { e.target.style.color = th.accent; e.target.style.paddingLeft = "10px"; e.target.style.borderBottomColor = th.accent + "33"; }} onMouseLeave={e => { e.target.style.color = th.text3; e.target.style.paddingLeft = "0"; e.target.style.borderBottomColor = th.cardBorder; }}>{r}</p>)}
       </div></Fade>
 
       {/* ═══ CONTACT ═══ */}
