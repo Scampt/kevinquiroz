@@ -6,3 +6,12 @@ dist/
 .vercel/
 *.log
 .DS_Store
+
+.vercel
+
+# Astro
+.astro/
+
+# Legacy files
+kevinquiroz-v3.jsx
+SETUP-LOCAL.md
