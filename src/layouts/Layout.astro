@@ -17,7 +17,7 @@ const {
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,6 +43,15 @@ const {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`https://kevinquiroz.com${ogImage}`} />
+
+    <!-- Theme init: run before render to prevent flash -->
+    <script is:inline>
+      (function() {
+        var saved = localStorage.getItem('kq-theme');
+        var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', saved || system);
+      })();
+    </script>
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -95,12 +104,31 @@ const {
           <a href="/#contact" class="nav-link" data-i18n="nav_contact">Contacto</a>
         </div>
 
-        <!-- Lang Toggle + Mobile Hamburger -->
+        <!-- Lang Toggle + Theme + Mobile Hamburger -->
         <div class="flex items-center gap-3">
           <div class="flex gap-1">
             <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
             <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
           </div>
+          <!-- Theme toggle -->
+          <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+            <!-- Moon (shown in dark mode) -->
+            <svg id="icon-moon" width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+            <!-- Sun (shown in light mode, hidden by default) -->
+            <svg id="icon-sun" width="15" height="15" fill="currentColor" viewBox="0 0 24 24" style="display:none">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
           <!-- Hamburger -->
           <button
             id="hamburger"
@@ -146,6 +174,18 @@ const {
         </div>
       </div>
     </footer>
+
+    <!-- Floating Chat Button -->
+    <button
+      class="float-chat-btn"
+      onclick="document.getElementById('contact')?.scrollIntoView({behavior:'smooth'}) || (window.location.href='/#contact')"
+      aria-label="Contactar"
+      title="Contáctame"
+    >
+      <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+      </svg>
+    </button>
 
     <script is:inline>
       // i18n translations
@@ -205,13 +245,46 @@ const {
         document.getElementById('mobile-menu').classList.remove('open');
       }
 
+      // Theme toggle
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('kq-theme', theme);
+        const isDark = theme === 'dark';
+        const moon = document.getElementById('icon-moon');
+        const sun  = document.getElementById('icon-sun');
+        if (moon) moon.style.display = isDark ? 'block' : 'none';
+        if (sun)  sun.style.display  = isDark ? 'none'  : 'block';
+      }
+
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+      }
+
+      // Sync icons on load
+      document.addEventListener('DOMContentLoaded', function() {
+        const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const moon = document.getElementById('icon-moon');
+        const sun  = document.getElementById('icon-sun');
+        if (moon) moon.style.display = theme === 'dark' ? 'block' : 'none';
+        if (sun)  sun.style.display  = theme === 'dark' ? 'none'  : 'block';
+      });
+
+      // Follow OS changes if user hasn't manually set a preference
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('kq-theme')) {
+          applyTheme(e.matches ? 'dark' : 'light');
+        }
+      });
+
       // Navbar scroll effect
-      window.addEventListener('scroll', () => {
+      window.addEventListener('scroll', function() {
         const nav = document.getElementById('navbar');
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
         if (window.scrollY > 50) {
-          nav.style.backgroundColor = 'rgba(10, 10, 15, 0.95)';
+          nav.style.backgroundColor = isLight ? 'rgba(245,247,250,0.95)' : 'rgba(10,10,15,0.95)';
           nav.style.backdropFilter = 'blur(12px)';
-          nav.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+          nav.style.borderBottom = isLight ? '1px solid rgba(0,0,0,0.07)' : '1px solid rgba(255,255,255,0.05)';
         } else {
           nav.style.backgroundColor = 'transparent';
           nav.style.backdropFilter = 'none';
