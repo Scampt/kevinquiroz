@@ -146,7 +146,7 @@ const {
       <!-- Mobile Menu -->
       <div
         id="mobile-menu"
-        class="md:hidden flex-col gap-4 px-6 pb-6 glass border-t border-white/5"
+        class="md:hidden flex-col gap-4 px-6 pb-6 glass border-t border-[var(--kq-border)]"
       >
         <a href="/#about" class="nav-link py-2" data-i18n="nav_about" onclick="closeMobileMenu()">Sobre Mí</a>
         <a href="/#services" class="nav-link py-2" data-i18n="nav_services" onclick="closeMobileMenu()">Servicios</a>
@@ -161,15 +161,15 @@ const {
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 py-10 mt-20">
+    <footer class="border-t border-[var(--kq-border)] py-10 mt-20">
       <div class="max-w-6xl mx-auto px-6">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p class="text-[#444] text-sm font-mono">
+          <p class="text-[var(--kq-muted3)] text-sm font-mono">
             &copy; 2024–2026 Kevin Quiroz. All rights reserved.
           </p>
           <div class="flex gap-6 text-sm">
-            <a href="/privacidad" class="text-[#444] hover:text-[#00ff88] transition-colors">Privacidad</a>
-            <a href="/condiciones" class="text-[#444] hover:text-[#00ff88] transition-colors">Términos</a>
+            <a href="/privacidad" class="text-[var(--kq-muted3)] hover:text-[#00ff88] transition-colors">Privacidad</a>
+            <a href="/condiciones" class="text-[var(--kq-muted3)] hover:text-[#00ff88] transition-colors">Términos</a>
           </div>
         </div>
       </div>

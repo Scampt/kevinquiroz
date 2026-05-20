@@ -277,15 +277,14 @@ body {
   100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* ─── Light mode: structural overrides ─── */
-[data-theme="light"] .bg-\[\#0a0a0f\]  { background-color: var(--kq-bg)      !important; }
-[data-theme="light"] .bg-\[\#111119\]  { background-color: var(--kq-surface)  !important; }
-[data-theme="light"] .text-\[\#e2e2e2\]{ color: var(--kq-text)               !important; }
-[data-theme="light"] .text-\[\#888\]   { color: var(--kq-muted)              !important; }
-[data-theme="light"] .text-\[\#666\]   { color: var(--kq-muted2)             !important; }
-[data-theme="light"] .text-\[\#555\]   { color: var(--kq-muted)              !important; }
-[data-theme="light"] .text-\[\#444\]   { color: var(--kq-muted3)             !important; }
-[data-theme="light"] .border-white\/5  { border-color: var(--kq-border)      !important; }
-[data-theme="light"] .border-white\/10 { border-color: rgba(0,0,0,0.1)       !important; }
-[data-theme="light"] .border-t.border-white\/5 { border-color: var(--kq-border) !important; }
-[data-theme="light"] footer            { border-color: var(--kq-border)       !important; }
+/* ─── Section with subtle alternate background ─── */
+.section-dim {
+  background-color: rgba(17,17,25,0.3);
+}
+
+[data-theme="light"] .section-dim {
+  background-color: rgba(0,0,0,0.03);
+}
+
+/* ─── Light mode: remaining structural fixes ─── */
+[data-theme="light"] footer { border-color: var(--kq-border) !important; }
