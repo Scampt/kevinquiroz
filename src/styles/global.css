@@ -237,38 +237,76 @@ body {
 #mobile-menu { display: none; }
 #mobile-menu.open { display: flex; }
 
-/* ─── Floating chat button ─── */
-.float-chat-btn {
+/* ─── Floating buttons container ─── */
+#kq-floats {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  z-index: 40;
-  width: 3.25rem;
-  height: 3.25rem;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ─── Scroll to top ─── */
+.kq-scroll-top {
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 9999px;
-  background: #00ff88;
-  color: #0a0a0f;
+  background: var(--kq-surface);
+  border: 1px solid var(--kq-border-sm);
+  color: var(--kq-muted);
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(0,255,136,0.35);
-  cursor: pointer;
-  border: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.2s, border-color 0.2s;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.kq-scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.kq-scroll-top:hover {
+  color: #00ff88;
+  border-color: rgba(0,255,136,0.35);
+}
+
+/* ─── WhatsApp floating button ─── */
+.float-wa-btn {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  background: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
 }
 
-.float-chat-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 30px rgba(0,255,136,0.5);
+.float-wa-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(37,211,102,0.55);
 }
 
-.float-chat-btn::after {
+.float-wa-btn::after {
   content: '';
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  background: rgba(0,255,136,0.3);
+  background: rgba(37,211,102,0.3);
   animation: float-pulse 2.5s ease-out infinite;
 }
 
@@ -289,7 +327,112 @@ body {
 /* ─── Light mode: remaining structural fixes ─── */
 [data-theme="light"] footer { border-color: var(--kq-border) !important; }
 
-/* ─── Chat Widget ─── */
+/* ─── WhatsApp card (contact section) ─── */
+.kq-wa-card {
+  background: var(--kq-surface);
+  border: 1px solid var(--kq-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.kq-wa-card-header {
+  background: #075e54;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+[data-theme="light"] .kq-wa-card-header { background: #128c7e; }
+
+.kq-wa-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00ff88, #00c9ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0a0a0f;
+  flex-shrink: 0;
+}
+
+.kq-wa-card-name { font-size: 0.9rem; font-weight: 600; color: #ffffff; }
+
+.kq-wa-card-status {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.8);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.kq-wa-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #25d366;
+  display: inline-block;
+}
+
+.kq-wa-messages-area {
+  padding: 14px 16px;
+  background: var(--kq-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 80px;
+}
+
+.kq-wa-msg-bubble {
+  background: var(--kq-surface);
+  border: 1px solid var(--kq-border-sm);
+  border-radius: 10px;
+  border-top-left-radius: 2px;
+  padding: 9px 12px;
+  font-size: 0.82rem;
+  color: var(--kq-text);
+  line-height: 1.5;
+  max-width: 90%;
+}
+
+.kq-wa-msg-time {
+  font-size: 0.65rem;
+  color: var(--kq-muted2);
+  padding-left: 2px;
+}
+
+.kq-wa-card-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--kq-border);
+}
+
+.kq-wa-open-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 10px;
+  background: #25d366;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.kq-wa-open-btn:hover {
+  background: #20bd5c;
+  transform: translateY(-1px);
+}
+
+/* ─── OLD Chat Widget (unused, safe to delete) ─── */
 #kq-chat-widget {
   position: fixed;
   bottom: 1.5rem;
