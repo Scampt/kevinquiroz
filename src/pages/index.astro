@@ -28,8 +28,8 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Bio -->
         <p id="hero-bio" class="text-[var(--kq-muted)] max-w-2xl text-base md:text-lg mb-8 leading-relaxed">
-          No-Code Automation Specialist &amp; QA Analyst. Diseño, testeo y mantengo workflows
-          complejos e integraciones. Especializado en n8n, Zapier, Make y OpenAI.
+          Automation Specialist especializado en CX automation para ecommerce en LATAM.
+          Diseño e implemento sistemas con n8n, Shopify, Chatwoot y OpenAI.
           Morelos, México.
         </p>
 
@@ -100,17 +100,16 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           <p id="about-text" class="text-[var(--kq-muted)] leading-relaxed mb-6">
-            No-Code Automation Specialist &amp; QA Analyst con experiencia práctica diseñando,
-            testeando y manteniendo workflows complejos e integraciones. Especializado en
-            automatizaciones con Zapier, Make y n8n, conexión de APIs y webhooks, e implementación
-            de soluciones con IA usando OpenAI. Background sólido en análisis de requerimientos,
-            planificación de pruebas, testing de regresión y seguimiento de incidencias.
+            Automation Specialist con 2+ años diseñando sistemas de CX automation para ecommerce
+            en LATAM. Construyo workflows complejos con n8n, integro Chatwoot + Shopify + Supabase,
+            y despliego soluciones de IA conversacional con OpenAI. Actualmente CX Operations &amp;
+            Automation Specialist en Interprika, con proyectos freelance activos en Jousfit, Valt y más.
           </p>
 
           <!-- Quick facts -->
           <div class="grid grid-cols-2 gap-4">
             <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-              <p class="font-mono text-[#00ff88] text-lg font-bold">3+</p>
+              <p class="font-mono text-[#00ff88] text-lg font-bold">2+</p>
               <p class="text-[var(--kq-muted2)] text-sm" data-i18n="fact_years">años de experiencia</p>
             </div>
             <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)]">
@@ -194,7 +193,7 @@ import Layout from '../layouts/Layout.astro';
             <p class="text-[var(--kq-muted2)] text-xs font-mono mb-3 uppercase tracking-widest" data-i18n="label_languages">Idiomas</p>
             <div class="flex flex-wrap gap-2">
               <span class="tag tag-green">Español C2</span>
-              <span class="tag tag-blue">English B1</span>
+              <span class="tag tag-blue">English B2</span>
               <span class="tag tag-gray">Français A1</span>
             </div>
           </div>
@@ -521,7 +520,7 @@ import Layout from '../layouts/Layout.astro';
         <span class="section-label" data-i18n="section_contact">CONTACTO</span>
         <h2 class="text-3xl md:text-4xl font-bold mt-2" data-i18n="contact_title">Trabajemos juntos.</h2>
         <p class="text-[var(--kq-muted2)] mt-3 max-w-xl" data-i18n="contact_subtitle">
-          ¿Proyecto de automatización, QA o desarrollo? Escríbeme y hablamos.
+          ¿Proyecto de automatización o CX? Escríbeme y hablamos.
         </p>
       </div>
 
@@ -663,7 +662,7 @@ import Layout from '../layouts/Layout.astro';
       stack_tools: "Herramientas",
       section_contact: "CONTACTO",
       contact_title: "Trabajemos juntos.",
-      contact_subtitle: "¿Proyecto de automatización, QA o desarrollo? Escríbeme y hablamos.",
+      contact_subtitle: "¿Proyecto de automatización o CX? Escríbeme y hablamos.",
       contact_direct: "Contacto directo",
       contact_location: "Ubicación",
       form_name: "Nombre",
@@ -715,7 +714,7 @@ import Layout from '../layouts/Layout.astro';
       stack_tools: "Tools",
       section_contact: "CONTACT",
       contact_title: "Let's work together.",
-      contact_subtitle: "Automation, QA or development project? Send me a message and let's talk.",
+      contact_subtitle: "Automation or CX project? Send me a message and let's talk.",
       contact_direct: "Direct contact",
       contact_location: "Location",
       form_name: "Name",
@@ -746,8 +745,14 @@ import Layout from '../layouts/Layout.astro';
     const bio = document.getElementById('hero-bio');
     if (bio) {
       bio.textContent = lang === 'en'
-        ? "No-Code Automation Specialist & QA Analyst with hands-on experience designing, testing and maintaining complex workflows and integrations. Specialised in n8n, Zapier, Make and OpenAI. Morelos, México."
-        : "No-Code Automation Specialist & QA Analyst con experiencia práctica diseñando, testeando y manteniendo workflows complejos e integraciones. Especializado en n8n, Zapier, Make y OpenAI. Morelos, México.";
+        ? "Automation Specialist focused on CX automation for ecommerce in LATAM. I design and implement systems with n8n, Shopify, Chatwoot and OpenAI. Morelos, México."
+        : "Automation Specialist especializado en CX automation para ecommerce en LATAM. Diseño e implemento sistemas con n8n, Shopify, Chatwoot y OpenAI. Morelos, México.";
+    }
+    const about = document.getElementById('about-text');
+    if (about) {
+      about.textContent = lang === 'en'
+        ? "Automation Specialist with 2+ years designing CX automation systems for ecommerce in LATAM. I build complex workflows with n8n, integrate Chatwoot + Shopify + Supabase, and deploy conversational AI with OpenAI. Currently CX Operations & Automation Specialist at Interprika, with active freelance projects at Jousfit, Valt and more."
+        : "Automation Specialist con 2+ años diseñando sistemas de CX automation para ecommerce en LATAM. Construyo workflows complejos con n8n, integro Chatwoot + Shopify + Supabase, y despliego soluciones de IA conversacional con OpenAI. Actualmente CX Operations & Automation Specialist en Interprika, con proyectos freelance activos en Jousfit, Valt y más.";
     }
   }
 
@@ -761,7 +766,7 @@ import Layout from '../layouts/Layout.astro';
   });
 
   // ── Typewriter ────────────────────────────────────────────────────────────
-  const roles = ["Automation Specialist", "QA Analyst", "Frontend Developer", "No-Code Builder"];
+  const roles = ["Automation Specialist", "CX Automation", "n8n Developer", "AI Integration"];
   let roleIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
