@@ -9,10 +9,10 @@ export interface Props {
 }
 
 const {
-  title = "Kevin Quiroz — Automation Specialist & QA Analyst",
+  title = "Kevin Quiroz — CX Operations & Automation Specialist",
   description = "No-Code Automation Specialist & QA Analyst. n8n, Zapier, Make, OpenAI. Diseño y testing de workflows complejos e integraciones. Morelos, México.",
   canonical = "https://kevinquiroz.com",
-  ogImage = "/avatar.png",
+  ogImage = "/me.jpg",
 } = Astro.props;
 ---
 
@@ -50,6 +50,11 @@ const {
         var saved = localStorage.getItem('kq-theme');
         var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         document.documentElement.setAttribute('data-theme', saved || system);
+        var sun = document.getElementById('icon-sun');
+        var moon = document.getElementById('icon-moon');
+        var theme = saved || system;
+        if (sun) sun.style.display = theme === 'light' ? 'block' : 'none';
+        if (moon) moon.style.display = theme === 'light' ? 'none' : 'block';
       })();
     </script>
 
@@ -61,7 +66,7 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -73,244 +78,215 @@ const {
       "alternateName": "Kevin Quiroz",
       "url": "https://kevinquiroz.com",
       "email": "luis.kevin.quiroz@gmail.com",
-      "jobTitle": "Automation Specialist & QA Analyst",
+      "jobTitle": "CX Operations & Automation Specialist",
       "address": { "@type": "PostalAddress", "addressRegion": "Morelos", "addressCountry": "MX" },
       "sameAs": [
         "https://github.com/scampt",
-        "https://www.linkedin.com/in/kevinquirozmx/",
-        "https://twitter.com/KevinQuirozMX",
-        "https://www.instagram.com/kevinquirozmx/"
+        "https://www.linkedin.com/in/kevinquirozmx/"
       ]
     })} />
   </head>
 
   <body>
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <!-- Logo -->
-        <a href="/" class="flex items-center gap-2 group">
-          <img src="/logo.png" alt="Kevin Quiroz" class="w-8 h-8 object-contain" />
-          <span class="font-mono text-sm text-[#00ff88] group-hover:text-white transition-colors">
-            <span class="text-[#666]">&gt;</span> kq
-          </span>
+    <div class="cursor-light" id="cursor-light"></div>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#hero" class="brand">
+          <span class="mark"></span>
+          <span>Kevin Quiroz</span>
         </a>
-
-        <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center gap-8">
-          <a href="/#about" class="nav-link" data-i18n="nav_about">Sobre Mí</a>
-          <a href="/#services" class="nav-link" data-i18n="nav_services">Servicios</a>
-          <a href="/#projects" class="nav-link" data-i18n="nav_projects">Proyectos</a>
-          <a href="/#contact" class="nav-link" data-i18n="nav_contact">Contacto</a>
+        <div class="nav-links">
+          <a href="#about" class="nav-link" data-i18n="nav_about">Sobre Mí</a>
+          <a href="#services" class="nav-link" data-i18n="nav_services">Servicios</a>
+          <a href="#projects" class="nav-link" data-i18n="nav_projects">Work</a>
+          <a href="#stack" class="nav-link">Stack</a>
+          <a href="#notes" class="nav-link" data-i18n="nav_notes">Notes</a>
         </div>
-
-        <!-- Lang Toggle + Theme + Mobile Hamburger -->
-        <div class="flex items-center gap-3">
-          <div class="flex gap-1">
-            <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
-            <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        <div class="nav-actions">
+          <div class="lang-group">
+            <button class="lang-btn active" id="lang-es" onclick="setLang('es')">ES</button>
+            <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
           </div>
-          <!-- Theme toggle -->
-          <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-            <!-- Moon (shown in dark mode) -->
-            <svg id="icon-moon" width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-            <!-- Sun (shown in light mode, hidden by default) -->
-            <svg id="icon-sun" width="15" height="15" fill="currentColor" viewBox="0 0 24 24" style="display:none">
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+          <button class="theme-btn" id="theme-toggle" type="button" aria-label="Toggle theme">
+            <svg id="icon-moon" width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg id="icon-sun" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
           </button>
-          <!-- Hamburger -->
-          <button
-            id="hamburger"
-            class="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
-            aria-label="Toggle menu"
-            onclick="toggleMobileMenu()"
-          >
-            <span class="w-5 h-0.5 bg-[#e2e2e2] transition-all"></span>
-            <span class="w-5 h-0.5 bg-[#e2e2e2] transition-all"></span>
-            <span class="w-5 h-0.5 bg-[#e2e2e2] transition-all"></span>
-          </button>
+          <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-i18n="nav_cta">Contacto</button>
         </div>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div
-        id="mobile-menu"
-        class="md:hidden flex-col gap-4 px-6 pb-6 glass border-t border-[var(--kq-border)]"
-      >
-        <a href="/#about" class="nav-link py-2" data-i18n="nav_about" onclick="closeMobileMenu()">Sobre Mí</a>
-        <a href="/#services" class="nav-link py-2" data-i18n="nav_services" onclick="closeMobileMenu()">Servicios</a>
-        <a href="/#projects" class="nav-link py-2" data-i18n="nav_projects" onclick="closeMobileMenu()">Proyectos</a>
-        <a href="/#contact" class="nav-link py-2" data-i18n="nav_contact" onclick="closeMobileMenu()">Contacto</a>
       </div>
     </nav>
 
-    <!-- Main Content -->
-    <main>
+    <main class="page">
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-[var(--kq-border)] py-10 mt-20">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p class="text-[var(--kq-muted3)] text-sm font-mono">
-            &copy; 2024–2026 Kevin Quiroz. All rights reserved.
-          </p>
-          <div class="flex gap-6 text-sm">
-            <a href="/privacidad" class="text-[var(--kq-muted3)] hover:text-[#00ff88] transition-colors">Privacidad</a>
-            <a href="/condiciones" class="text-[var(--kq-muted3)] hover:text-[#00ff88] transition-colors">Términos</a>
-          </div>
+    <footer class="foot">
+      <div class="container foot-inner">
+        <p>© 2024 — 2026 · Kevin Quiroz · Morelos, MX</p>
+        <div class="foot-links">
+          <a href="/privacidad">Privacidad</a>
+          <a href="/condiciones">Términos</a>
+          <a href="#hero">↑ Top</a>
         </div>
       </div>
     </footer>
 
-    <!-- Floating buttons -->
-    <div id="kq-floats">
-      <button
-        id="kq-scroll-top"
-        class="kq-scroll-top"
-        onclick="window.scrollTo({top:0,behavior:'smooth'})"
-        aria-label="Volver arriba"
-        title="Volver arriba"
-      >
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <polyline points="18 15 12 9 6 15"/>
-        </svg>
-      </button>
-      <a
-        href="https://wa.me/527351842906?text=Hola%20Kevin%2C%20te%20escribo%20desde%20tu%20portafolio."
-        class="float-wa-btn"
-        target="_blank"
-        rel="noopener"
-        aria-label="Chatear en WhatsApp"
-        title="Chatear en WhatsApp"
-      >
-        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-        </svg>
-      </a>
-    </div>
+    <!-- WhatsApp floating button -->
+    <a href="https://wa.me/527351842906" target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
+      <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
 
     <script is:inline>
-      // i18n translations
-      const translations = {
-        es: {
-          nav_about: "Sobre Mí",
-          nav_services: "Servicios",
-          nav_projects: "Proyectos",
-          nav_contact: "Contacto",
-        },
+      /* ════════════ NAV scroll state ════════════ */
+      const nav = document.getElementById('nav');
+      addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+
+      /* ════════════ Cursor light ════════════ */
+      const cl = document.getElementById('cursor-light');
+      let cx = innerWidth/2, cy = innerHeight/2;
+      let tx = cx, ty = cy;
+      addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; cl.style.opacity = '1'; });
+      addEventListener('mouseleave', () => { cl.style.opacity = '0'; });
+      function tickCursor(){
+        cx += (tx - cx) * 0.12;
+        cy += (ty - cy) * 0.12;
+        cl.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+        requestAnimationFrame(tickCursor);
+      }
+      tickCursor();
+
+      /* ════════════ Theme toggle ════════════ */
+      (function(){
+        const root = document.documentElement;
+        const saved = localStorage.getItem('kq-theme');
+        const sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        root.setAttribute('data-theme', saved || sys);
+        const sun = document.getElementById('icon-sun');
+        const moon = document.getElementById('icon-moon');
+        function paint() {
+          const t = root.getAttribute('data-theme');
+          if (sun) sun.style.display = t === 'light' ? 'block' : 'none';
+          if (moon) moon.style.display = t === 'light' ? 'none' : 'block';
+        }
+        paint();
+        const btn = document.getElementById('theme-toggle');
+        if (btn) btn.addEventListener('click', () => {
+          const cur = root.getAttribute('data-theme') || 'dark';
+          const nxt = cur === 'light' ? 'dark' : 'light';
+          root.setAttribute('data-theme', nxt);
+          localStorage.setItem('kq-theme', nxt);
+          paint();
+        });
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+          if (!localStorage.getItem('kq-theme')) {
+            root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+            paint();
+          }
+        });
+      })();
+
+      /* ════════════ Lang toggle ════════════ */
+      window.currentLang = localStorage.getItem('kq-lang-cosmos') || 'es';
+
+      const T = {
+        es: {},
         en: {
-          nav_about: "About",
-          nav_services: "Services",
-          nav_projects: "Projects",
-          nav_contact: "Contact",
+          nav_about: "About", nav_services: "Services", nav_projects: "Work", nav_notes: "Notes", nav_cta: "Contact",
+          hero_status: "Available · Q3 2026",
+          hero_h1: "Workflows",
+          hero_h2: "that don't break",
+          hero_role: "Specialist in",
+          hero_bio: "I design, test and maintain complex workflows and integrations that run in production 24/7. <strong>3+ years</strong> · <strong>50+ workflows</strong> · <strong>0 P0 incidents</strong> this quarter. Based in Morelos, Mexico — remote worldwide.",
+          cta_work: "See the work", cta_talk: "Let's talk",
+          lbl_about: "About · 01",
+          about_h: "Systems that <span class='grad'>don't fail.</span>",
+          about_lead: "No-Code Automation Specialist <span class='grad'>&</span> QA Analyst. I build the invisible plumbing that keeps businesses running when no one's watching.",
+          about_p1: "Specialized in automations with <strong>Zapier, Make and n8n</strong>, API and webhook integration, and AI solutions with OpenAI. Strong background in requirements analysis, test planning, regression testing and incident tracking.",
+          about_p2: "Three years, fifty workflows in production, zero P0 incidents this quarter. The difference between a demo and an operation is what happens at 3 AM when an API changes. <strong>My job is keeping you asleep.</strong>",
+          ast_y: "Years", ast_w: "Workflows", ast_p: "Projects", ast_l: "Languages",
+          now: "Now",
+          j1b1: "CRM + marketing automation via Zapier, Make, n8n",
+          j1b2: "Requirement analysis → user stories in Trello",
+          j1b3: "Manual and automated test cases",
+          j2b1: "WordPress and React.js QA: performance, UI/UX, responsiveness",
+          j2b2: "Technical SEO plugin integration",
+          j2b3: "Responsive layout validation",
+          edu: "B.Sc. Computer Science",
+          lbl_srv: "Services · 02",
+          srv_h: "What I <span class='grad'>build.</span>",
+          svc1_t: "Automation",
+          svc1_p: "n8n, Zapier, Make. End-to-end workflows with error handling, logs and production reliability.",
+          svc2_t: "QA & Testing",
+          svc2_p: "Manual, regression, smoke and edge-case testing. Bug tracking and full matrices.",
+          svc3_t: "API & Webhooks",
+          svc3_p: "App-to-app connections, real-time sync and robust error handling.",
+          svc4_t: "Frontend Dev",
+          svc4_p: "React, WordPress, Shopify. Performance-first with technical SEO from the start.",
+          svc5_t: "CX Operations",
+          svc5_p: "Customer journey mapping, bottleneck removal, scalable process design.",
+          svc6_t: "AI Integration",
+          svc6_p: "OpenAI, Whisper, generative pipelines. AI as infrastructure, not gimmick.",
+          lbl_proj: "Projects · 03",
+          proj_h: "<span class='grad'>7 things</span> that shipped.",
+          p1d: "End-to-end event-management automation: scraping, email tracking and CRM sync. The planner went from \"I think we have 200 leads\" to a real, scored, dated list.",
+          p2d: "Fitness CRM: Chatwoot V0–V10, human buffer, Shopify fraud detection and conversational AI. Median response from 4 hours to 12 minutes.",
+          p3d: "Marketing pipeline: Mailchimp, Hotmart, Whisper transcription and AI content. $0.12 per lesson.",
+          p4d: "Website for a Kingston medical centre. Organic traffic +230% in four months.",
+          p5d: "Corporate site for a consultancy. Time-on-site doubled, 3 inbound RFPs in 60 days.",
+          p6d: "NFT landing with animations, wallet connect and generative design. Experimental Web3.",
+          p7d: "WordPress plugin for smart redirection based on UTM params and user behavior. Zero bug reports in production this quarter, running on 6 client sites.",
+          stack_h: "Tools of the <span class='grad'>craft.</span>",
+          g_auto: "Automation", g_tools: "Tools",
+          notes_h: "Technical <span class='grad'>notes.</span>",
+          n1t: "Why n8n won the no-code war in production",
+          n1e: "Real trade-offs between self-hosted n8n, Zapier and Make when your workflow runs 24/7.",
+          n2t: "Workflow testing: the matrix I use to keep production safe",
+          n2e: "Unit tests, smoke tests and rollback plans applied to automations.",
+          n3t: "OpenAI inside n8n: architecture for reliable pipelines",
+          n3e: "Retries, output validation, predictable costs with an LLM in the middle.",
+          lbl_con: "Contact · 06",
+          contact_h: "Got a <span class='grad'>workflow</span> to break?",
+          contact_p: "Automation, QA or frontend projects. I respond within 24h, in Spanish or English.",
+          f_name: "Name", f_mail: "Email", f_msg: "Project",
+          f_small: "REPLY IN < 24H", f_send: "Send"
         }
       };
 
-      function applyLang(lang) {
+      // Cache original ES text on first load
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        if (!el.dataset.es) el.dataset.es = el.innerHTML;
+      });
+
+      function setLang(lang){
+        document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+        document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        document.documentElement.lang = lang;
         document.querySelectorAll('[data-i18n]').forEach(el => {
           const key = el.getAttribute('data-i18n');
-          if (translations[lang] && translations[lang][key]) {
-            el.textContent = translations[lang][key];
+          if (lang === 'es') {
+            el.innerHTML = el.dataset.es;
+          } else if (T.en[key] !== undefined) {
+            el.innerHTML = T.en[key];
           }
         });
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-          const key = el.getAttribute('data-i18n-placeholder');
-          if (translations[lang] && translations[lang][key]) {
-            el.placeholder = translations[lang][key];
-          }
-        });
-        document.getElementById('btn-es').classList.toggle('active', lang === 'es');
-        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-        localStorage.setItem('kq-lang', lang);
         window.currentLang = lang;
+        localStorage.setItem('kq-lang-cosmos', lang);
         document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
       }
 
-      function setLang(lang) {
-        applyLang(lang);
+      // Init lang
+      const savedLang = localStorage.getItem('kq-lang-cosmos') || 'es';
+      if (savedLang === 'en') {
+        document.addEventListener('DOMContentLoaded', () => {
+          // re-cache ES after DOM is ready
+          document.querySelectorAll('[data-i18n]').forEach(el => {
+            if (!el.dataset.es) el.dataset.es = el.innerHTML;
+          });
+          setLang('en');
+        });
       }
-
-      // Init lang from localStorage
-      const savedLang = localStorage.getItem('kq-lang') || 'es';
-      window.currentLang = savedLang;
-      document.addEventListener('DOMContentLoaded', () => {
-        applyLang(savedLang);
-      });
-
-      // Mobile menu
-      function toggleMobileMenu() {
-        const menu = document.getElementById('mobile-menu');
-        menu.classList.toggle('open');
-      }
-
-      function closeMobileMenu() {
-        document.getElementById('mobile-menu').classList.remove('open');
-      }
-
-      // Theme toggle
-      function applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('kq-theme', theme);
-        const isDark = theme === 'dark';
-        const moon = document.getElementById('icon-moon');
-        const sun  = document.getElementById('icon-sun');
-        if (moon) moon.style.display = isDark ? 'block' : 'none';
-        if (sun)  sun.style.display  = isDark ? 'none'  : 'block';
-      }
-
-      function toggleTheme() {
-        const current = document.documentElement.getAttribute('data-theme') || 'dark';
-        applyTheme(current === 'dark' ? 'light' : 'dark');
-      }
-
-      // Sync icons on load
-      document.addEventListener('DOMContentLoaded', function() {
-        const theme = document.documentElement.getAttribute('data-theme') || 'dark';
-        const moon = document.getElementById('icon-moon');
-        const sun  = document.getElementById('icon-sun');
-        if (moon) moon.style.display = theme === 'dark' ? 'block' : 'none';
-        if (sun)  sun.style.display  = theme === 'dark' ? 'none'  : 'block';
-      });
-
-      // Follow OS changes if user hasn't manually set a preference
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-        if (!localStorage.getItem('kq-theme')) {
-          applyTheme(e.matches ? 'dark' : 'light');
-        }
-      });
-
-      // Navbar scroll + scroll-to-top visibility
-      window.addEventListener('scroll', function() {
-        const nav = document.getElementById('navbar');
-        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        if (window.scrollY > 50) {
-          nav.style.backgroundColor = isLight ? 'rgba(245,247,250,0.95)' : 'rgba(10,10,15,0.95)';
-          nav.style.backdropFilter = 'blur(12px)';
-          nav.style.borderBottom = isLight ? '1px solid rgba(0,0,0,0.07)' : '1px solid rgba(255,255,255,0.05)';
-        } else {
-          nav.style.backgroundColor = 'transparent';
-          nav.style.backdropFilter = 'none';
-          nav.style.borderBottom = 'none';
-        }
-        var scrollBtn = document.getElementById('kq-scroll-top');
-        if (scrollBtn) {
-          if (window.scrollY > 300) scrollBtn.classList.add('visible');
-          else scrollBtn.classList.remove('visible');
-        }
-      });
     </script>
   </body>
 </html>

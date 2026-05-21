@@ -1,0 +1,241 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const posts = [
+  {
+    id: '001',
+    date: '15 · MAY · 2026',
+    titleEs: 'Por qué n8n ganó la guerra del no-code en producción',
+    titleEn: 'Why n8n won the no-code war in production',
+    excerptEs: 'Las trade-offs reales entre n8n self-hosted, Zapier y Make cuando tu workflow corre 24/7 y un fallo cuesta dinero.',
+    excerptEn: 'The real trade-offs between self-hosted n8n, Zapier and Make when your workflow runs 24/7 and a failure costs money.',
+    category: 'Automation',
+    tagClass: 'tag-accent',
+    readTime: '8 min',
+  },
+  {
+    id: '002',
+    date: '02 · MAY · 2026',
+    titleEs: 'Testing de workflows: la matriz que uso para no romper producción',
+    titleEn: 'Workflow testing: the matrix I use to keep production safe',
+    excerptEs: 'Pruebas unitarias, smoke tests y rollback plans aplicados a automatizaciones — porque "funciona en mi pantalla" no aplica cuando hay webhooks de por medio.',
+    excerptEn: 'Unit tests, smoke tests and rollback plans applied to automations — because "works on my screen" doesn\'t fly with webhooks involved.',
+    category: 'QA',
+    tagClass: 'tag',
+    readTime: '12 min',
+  },
+  {
+    id: '003',
+    date: '19 · ABR · 2026',
+    titleEs: 'OpenAI dentro de n8n: arquitectura para pipelines confiables',
+    titleEn: 'OpenAI inside n8n: architecture for reliable pipelines',
+    excerptEs: 'Cómo estructurar reintentos, validación de salidas y costos predecibles al meter un LLM en medio de un flujo de negocio crítico.',
+    excerptEn: 'How to structure retries, output validation and predictable costs when an LLM sits in the middle of a critical business flow.',
+    category: 'AI',
+    tagClass: 'tag-warm',
+    readTime: '10 min',
+  },
+];
+
+const categories = ['All', 'Automation', 'QA', 'AI', 'Frontend', 'Tools'];
+---
+
+<Layout
+  title="Notas técnicas — Kevin Quiroz"
+  description="Notas técnicas sobre automatización, QA, integraciones y herramientas no-code por Kevin Quiroz."
+>
+  <!-- ===================== BLOG HEADER ===================== -->
+  <section id="blog-top" class="hero-wrap px-7" style="min-height: 60vh; padding-top: 160px; padding-bottom: 60px;">
+    <div class="max-w-[1200px] mx-auto w-full relative z-10">
+      <div class="fade-in">
+        <span class="kicker mb-6 block" data-i18n="blog_kicker">05 · Notas técnicas</span>
+        <h1 class="hero-h1 mb-6" data-i18n="blog_h1" set:html="Notas <em class='accent'>técnicas.</em>"></h1>
+        <p class="hero-bio max-w-[640px]" data-i18n="blog_intro">
+          Apuntes de campo sobre automatización con n8n y Zapier, QA aplicado a workflows, integraciones con APIs y todo lo que aprendo metiendo IA en sistemas que tienen que correr de verdad.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BLOG LIST ===================== -->
+  <section class="px-7 pb-[120px]">
+    <div class="max-w-[1200px] mx-auto">
+      <!-- Category filter (visual only — purely declarative for now) -->
+      <div class="fade-in flex flex-wrap gap-2 mb-10 pb-6 border-b border-[var(--kq-border)]">
+        <span class="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--kq-muted)] self-center mr-2" data-i18n="blog_filter">FILTRAR</span>
+        {categories.map((cat, i) => (
+          <button
+            class={`tag ${i === 0 ? 'tag-accent' : ''} cursor-pointer`}
+            style="border-radius: 999px; padding: 6px 14px; font-size: 11px;"
+            data-cat={cat}
+            type="button"
+          >
+            <span class="swatch"></span>{cat}
+          </button>
+        ))}
+      </div>
+
+      <div class="blog-list fade-in">
+        {posts.map(post => (
+          <a href={`#${post.id}`} id={post.id} class="blog-row" data-cat={post.category}>
+            <span class="col-num">{post.id}</span>
+            <span class="col-date">{post.date}</span>
+            <h3 class="col-title">
+              <span data-i18n={`post${post.id}_title`} data-en={post.titleEn}>{post.titleEs}</span>
+              <span class="excerpt" data-i18n={`post${post.id}_excerpt`} data-en={post.excerptEn}>{post.excerptEs}</span>
+              <span class="font-mono text-[10px] text-[var(--kq-muted2)] mt-2 inline-flex items-center gap-3" style="letter-spacing:.1em">
+                <span>· {post.readTime} read</span>
+              </span>
+            </h3>
+            <span class="col-tag"><span class={`tag ${post.tagClass}`}><span class="swatch"></span>{post.category}</span></span>
+            <span class="col-arrow">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+        ))}
+
+        <!-- Empty-state row: signaling more is coming -->
+        <div class="grid grid-cols-[60px_110px_1fr_140px_40px] gap-7 items-baseline py-7 border-b border-[var(--kq-border)] opacity-50" style="--placeholder: 1;">
+          <span class="col-num font-mono text-[12px] text-[var(--kq-muted3)]">004</span>
+          <span class="font-mono text-[12px] text-[var(--kq-muted3)]">— · — · 2026</span>
+          <h3 class="font-display text-[20px] text-[var(--kq-muted)] m-0" style="font-weight: 400; letter-spacing: -0.01em;" data-i18n="blog_soon">
+            Próximamente · más notas en camino
+          </h3>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- Newsletter teaser -->
+      <div class="fade-in mt-16 p-8 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] grid md:grid-cols-[1fr_auto] gap-6 items-center">
+        <div>
+          <p class="font-mono text-[10px] tracking-[0.18em] uppercase text-[var(--kq-accent)] mb-2">SUBSCRIBE · 00</p>
+          <h3 class="font-display text-[28px] m-0 mb-2" style="font-weight:400; letter-spacing: -0.01em;" data-i18n="newsletter_title">
+            Notas en tu inbox, sin spam.
+          </h3>
+          <p class="text-[var(--kq-muted)] text-sm m-0 max-w-[460px]" data-i18n="newsletter_desc">
+            Una o dos veces al mes. Solo cuando publico algo que vale la pena leer.
+          </p>
+        </div>
+        <form class="flex gap-2 w-full md:w-auto" action="https://formspree.io/f/mayzpleg" method="POST">
+          <input
+            type="hidden"
+            name="kind"
+            value="newsletter"
+          />
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="tu@email.com"
+            class="flex-1 md:w-[260px] px-4 py-3 rounded-lg bg-[var(--kq-bg)] border border-[var(--kq-border)] text-[var(--kq-text)] text-sm focus:outline-none focus:border-[var(--kq-accent)] transition-colors font-mono"
+          />
+          <button type="submit" class="btn btn-primary" data-i18n="newsletter_submit">
+            Suscribirme
+          </button>
+        </form>
+      </div>
+
+      <!-- Back to home -->
+      <div class="mt-16 pt-8 border-t border-[var(--kq-border)] flex items-center justify-between gap-4 flex-wrap">
+        <a href="/" class="font-mono text-[12px] text-[var(--kq-muted)] hover:text-[var(--kq-accent)] transition-colors">
+          ← <span data-i18n="back_home">Volver al inicio</span>
+        </a>
+        <span class="font-mono text-[11px] text-[var(--kq-muted2)] tracking-wider">
+          <span data-i18n="blog_count">3 notas publicadas</span> · <span data-i18n="more_coming">más por venir</span>
+        </span>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  // ─── Translations specific to the blog index ─────────────────
+  const tBlog = {
+    es: {
+      blog_kicker: "05 · Notas técnicas",
+      blog_h1: "Notas <em class='accent'>técnicas.</em>",
+      blog_intro: "Apuntes de campo sobre automatización con n8n y Zapier, QA aplicado a workflows, integraciones con APIs y todo lo que aprendo metiendo IA en sistemas que tienen que correr de verdad.",
+      blog_filter: "FILTRAR",
+      blog_soon: "Próximamente · más notas en camino",
+      newsletter_title: "Notas en tu inbox, sin spam.",
+      newsletter_desc: "Una o dos veces al mes. Solo cuando publico algo que vale la pena leer.",
+      newsletter_submit: "Suscribirme",
+      back_home: "Volver al inicio",
+      blog_count: "3 notas publicadas",
+      more_coming: "más por venir"
+    },
+    en: {
+      blog_kicker: "05 · Technical notes",
+      blog_h1: "Technical <em class='accent'>notes.</em>",
+      blog_intro: "Field notes on automation with n8n and Zapier, QA applied to workflows, API integrations and everything I learn putting AI inside systems that actually need to run.",
+      blog_filter: "FILTER",
+      blog_soon: "Coming soon · more notes on the way",
+      newsletter_title: "Notes in your inbox, no spam.",
+      newsletter_desc: "Once or twice a month. Only when I publish something worth reading.",
+      newsletter_submit: "Subscribe",
+      back_home: "Back to home",
+      blog_count: "3 notes published",
+      more_coming: "more coming"
+    }
+  };
+  const HTML_KEYS_BLOG = new Set(['blog_h1']);
+
+  function applyBlogLang(lang) {
+    const dict = tBlog[lang] || tBlog.es;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      // Post-specific titles/excerpts use data-en attribute
+      if (key && key.startsWith('post') && lang === 'en' && el.hasAttribute('data-en')) {
+        el.textContent = el.getAttribute('data-en');
+        return;
+      }
+      if (!dict[key]) return;
+      if (HTML_KEYS_BLOG.has(key)) el.innerHTML = dict[key];
+      else el.textContent = dict[key];
+    });
+    // Restore ES post text on switch back: the original textContent is in the markup.
+    if (lang === 'es') {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        // ES is in the source HTML — refresh by re-reading the data attribute fallback
+        if (el.dataset.es) el.textContent = el.dataset.es;
+      });
+    }
+  }
+
+  // Cache the ES content before any translation runs
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-en]').forEach(el => {
+      if (!el.dataset.es) el.dataset.es = el.textContent;
+    });
+    applyBlogLang(window.currentLang || 'es');
+  });
+  document.addEventListener('langchange', (e) => applyBlogLang(e.detail.lang));
+
+  // ─── Fade-in observer ─────────────────────────────────────────
+  (function(){
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  })();
+
+  // ─── Category filter (client-side) ────────────────────────────
+  (function(){
+    const buttons = document.querySelectorAll('button[data-cat]');
+    const rows = document.querySelectorAll('.blog-row[data-cat]');
+    buttons.forEach(b => {
+      b.addEventListener('click', () => {
+        const cat = b.getAttribute('data-cat');
+        buttons.forEach(x => x.classList.toggle('tag-accent', x === b));
+        rows.forEach(r => {
+          const match = cat === 'All' || r.getAttribute('data-cat') === cat;
+          r.style.display = match ? '' : 'none';
+        });
+      });
+    });
+  })();
+</script>

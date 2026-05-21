@@ -3,615 +3,474 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-  <!-- ===================== HERO ===================== -->
-  <section id="hero" class="min-h-screen flex items-center pt-20 pb-12 px-6">
-    <div class="max-w-6xl mx-auto w-full">
-      <div class="fade-in">
-        <!-- Status badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(0,255,136,0.2)] bg-[rgba(0,255,136,0.05)] mb-8">
-          <span class="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse"></span>
-          <span class="font-mono text-xs text-[#00ff88]" data-i18n="hero_status">Disponible para proyectos</span>
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left reveal">
+          <div class="hero-status">
+            <span class="dot"></span>
+            <span data-i18n="hero_status">Disponible · Q3 2026</span>
+          </div>
+          <h1>
+            <span data-i18n="hero_h1">Workflows</span><br />
+            <span class="gradient" data-i18n="hero_h2">que no se rompen</span>
+          </h1>
+          <div class="hero-role">
+            <span data-i18n="hero_role">Especialista en</span>
+            <span class="chip">n8n</span>
+            <span class="chip">Zapier</span>
+            <span class="chip">OpenAI</span>
+          </div>
+          <p class="hero-bio" data-i18n="hero_bio">
+            Diseño, testeo y mantengo workflows complejos e integraciones que corren en producción 24/7. <strong>3+ años</strong> · <strong>50+ workflows</strong> · <strong>0 incidentes P0</strong> este trimestre. Desde Morelos, México — remoto worldwide.
+          </p>
+          <div class="hero-cta-row">
+            <button class="btn btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+              <span data-i18n="cta_work">Ver el trabajo</span>
+              <span class="arr">↗</span>
+            </button>
+            <button class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+              <span data-i18n="cta_talk">Hablemos</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Name -->
-        <h1 class="text-5xl md:text-7xl font-bold mb-4 leading-tight">
-          Kevin<br />
-          <span class="gradient-text">Quiroz</span>
-        </h1>
-
-        <!-- Typewriter role -->
-        <div class="flex items-center gap-2 mb-6">
-          <span class="text-[var(--kq-muted2)] font-mono text-lg">&gt;</span>
-          <span id="typewriter-text" class="text-xl md:text-2xl font-mono text-[var(--kq-text)]"></span>
-          <span class="typewriter-cursor"></span>
-        </div>
-
-        <!-- Bio -->
-        <p id="hero-bio" class="text-[var(--kq-muted)] max-w-2xl text-base md:text-lg mb-8 leading-relaxed">
-          Automation Specialist especializado en CX automation para ecommerce en LATAM.
-          Diseño e implemento sistemas con n8n, Shopify, Chatwoot y OpenAI.
-          Morelos, México.
-        </p>
-
-        <!-- CTAs -->
-        <div class="flex flex-wrap gap-4 mb-10">
-          <a
-            href="#projects"
-            id="cta-projects"
-            class="px-6 py-3 rounded-lg bg-[#00ff88] text-[#0a0a0f] font-semibold text-sm hover:bg-white transition-colors"
-            data-i18n="cta_projects"
-          >
-            Ver Proyectos
-          </a>
-          <a
-            href="#contact"
-            id="cta-contact"
-            class="px-6 py-3 rounded-lg border border-[rgba(255,255,255,0.12)] text-[var(--kq-text)] font-semibold text-sm hover:border-[#00ff88] hover:text-[#00ff88] transition-all"
-            data-i18n="cta_contact"
-          >
-            Contáctame
-          </a>
-        </div>
-
-        <!-- Social links -->
-        <div class="flex items-center gap-6">
-          <a href="https://github.com/scampt" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[var(--kq-text)] transition-colors" aria-label="GitHub">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/in/kevinquirozmx/" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[#00c9ff] transition-colors" aria-label="LinkedIn">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          </a>
-          <a href="https://twitter.com/KevinQuirozMX" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[var(--kq-text)] transition-colors" aria-label="Twitter/X">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/kevinquirozmx/" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[var(--kq-text)] transition-colors" aria-label="Instagram">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-          </a>
-          <a href="mailto:luis.kevin.quiroz@gmail.com" class="text-[var(--kq-muted)] hover:text-[#00ff88] transition-colors font-mono text-xs" aria-label="Email">
-            luis.kevin.quiroz@gmail.com
-          </a>
+        <div class="hero-right reveal">
+          <div class="orb iris hero-orb" id="hero-orb">
+            <div class="orb-halo"></div>
+            <div class="orb-sphere"></div>
+          </div>
+          <div class="hero-photo">
+            <img src="/me.jpg" alt="Kevin Quiroz" />
+            <div class="caption">KQ · MX</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== ABOUT ===================== -->
-  <section id="about" class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="fade-in mb-12">
-        <span class="section-label" data-i18n="section_about">SOBRE MÍ</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2">
-          <span data-i18n="about_title">Construyo sistemas que no fallan.</span>
-        </h2>
+  <!-- ═══════════════════ ABOUT ═══════════════════ -->
+  <section id="about" class="s">
+    <div class="container">
+      <div class="s-head reveal">
+        <span class="label" data-i18n="lbl_about">Sobre mí · 01</span>
+        <h2 data-i18n="about_h">Sistemas que <span class="grad">no fallan.</span></h2>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-12 items-start">
-        <!-- Text + Photo -->
-        <div class="fade-in">
-          <div class="flex items-start gap-4 mb-6">
-            <img
-              src="/avatar.png"
-              alt="Kevin Quiroz"
-              class="w-16 h-16 rounded-full object-cover border-2 border-[rgba(0,255,136,0.3)]"
-            />
-            <div>
-              <p class="font-semibold text-[var(--kq-text)]">Luis Kevin Quiroz Pacheco</p>
-              <p class="text-sm text-[var(--kq-muted2)] font-mono">@scampt · Morelos, México</p>
-            </div>
+      <div class="about-grid">
+        <div class="about-photo-wrap reveal">
+          <img src="/me.jpg" alt="Kevin Quiroz" />
+          <div class="about-photo-meta">
+            <div class="name">Luis Kevin Quiroz Pacheco</div>
+            <div class="where">Morelos, México</div>
           </div>
-          <p id="about-text" class="text-[var(--kq-muted)] leading-relaxed mb-6">
-            Automation Specialist con 2+ años diseñando sistemas de CX automation para ecommerce
-            en LATAM. Construyo workflows complejos con n8n, integro Chatwoot + Shopify + Supabase,
-            y despliego soluciones de IA conversacional con OpenAI. Actualmente CX Operations &amp;
-            Automation Specialist en Interprika, con proyectos freelance activos en Jousfit, Valt y más.
+        </div>
+
+        <div class="about-prose reveal">
+          <p class="lead" data-i18n="about_lead">
+            No-Code Automation Specialist <span class="grad">&amp;</span> QA Analyst. Diseño la fontanería invisible que mantiene a los negocios corriendo cuando nadie está mirando.
+          </p>
+          <p data-i18n="about_p1">
+            Especializado en automatizaciones con <strong>Zapier, Make y n8n</strong>, integración de APIs y webhooks, y soluciones con IA usando OpenAI. Background sólido en análisis de requerimientos, planificación de pruebas, testing de regresión y seguimiento de incidencias.
+          </p>
+          <p data-i18n="about_p2">
+            Tres años, cincuenta workflows en producción, cero incidentes P0 este trimestre. La diferencia entre un demo y una operación es lo que pasa a las 3 AM cuando una API cambia. <strong>Mi trabajo es que sigas durmiendo.</strong>
           </p>
 
-          <!-- Quick facts -->
-          <div class="grid grid-cols-2 gap-4">
-            <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-              <p class="font-mono text-[#00ff88] text-lg font-bold">2+</p>
-              <p class="text-[var(--kq-muted2)] text-sm" data-i18n="fact_years">años de experiencia</p>
-            </div>
-            <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-              <p class="font-mono text-[#00c9ff] text-lg font-bold">50+</p>
-              <p class="text-[var(--kq-muted2)] text-sm" data-i18n="fact_workflows">workflows en producción</p>
-            </div>
-            <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-              <p class="font-mono text-[#00ff88] text-lg font-bold">7</p>
-              <p class="text-[var(--kq-muted2)] text-sm" data-i18n="fact_projects">proyectos destacados</p>
-            </div>
-            <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-              <p class="font-mono text-[#00c9ff] text-lg font-bold">3</p>
-              <p class="text-[var(--kq-muted2)] text-sm" data-i18n="fact_langs">idiomas</p>
-            </div>
+          <div class="about-stats">
+            <div class="glass-card"><div class="n">3+</div><div class="l" data-i18n="ast_y">Años</div></div>
+            <div class="glass-card"><div class="n">50+</div><div class="l" data-i18n="ast_w">Workflows</div></div>
+            <div class="glass-card"><div class="n">07</div><div class="l" data-i18n="ast_p">Proyectos</div></div>
+            <div class="glass-card"><div class="n">03</div><div class="l" data-i18n="ast_l">Idiomas</div></div>
           </div>
-        </div>
 
-        <!-- Experience Timeline -->
-        <div class="fade-in">
-          <span class="section-label mb-6 block" data-i18n="section_experience">EXPERIENCIA</span>
-
-          <div class="space-y-8">
-            <!-- Job 1 -->
-            <div class="relative pl-6">
-              <div class="timeline-line"></div>
-              <div class="absolute left-0 top-2.5 w-3.5 h-3.5 rounded-full border-2 border-[#00ff88] bg-[var(--kq-bg)]"></div>
-              <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-                <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
-                  <div>
-                    <p class="font-semibold text-[var(--kq-text)] text-sm">CX Operations &amp; Automation Specialist</p>
-                    <p class="text-[#00ff88] text-xs font-mono">Interprika</p>
-                  </div>
-                  <span class="tag tag-green text-xs">Oct 2025 – Presente</span>
-                </div>
-                <ul class="text-[var(--kq-muted2)] text-xs space-y-1 list-none">
-                  <li>· Automatizaciones CRM + marketing via Zapier, Make, n8n</li>
-                  <li>· Análisis de requerimientos → user stories en Trello</li>
-                  <li>· Casos de prueba manuales y automatizados</li>
-                  <li>· Documentación de workflows y manuales</li>
+          <div class="timeline">
+            <div class="tl">
+              <div class="when">Oct 2025<br /><span class="now" data-i18n="now">Now</span></div>
+              <div>
+                <h4>CX Operations &amp; Automation Specialist</h4>
+                <div class="org hl">Interprika</div>
+                <ul>
+                  <li data-i18n="j1b1">Automatizaciones CRM + marketing vía Zapier, Make, n8n</li>
+                  <li data-i18n="j1b2">Análisis de requerimientos → user stories en Trello</li>
+                  <li data-i18n="j1b3">Casos de prueba manuales y automatizados</li>
                 </ul>
               </div>
             </div>
-
-            <!-- Job 2 -->
-            <div class="relative pl-6">
-              <div class="absolute left-0 top-2.5 w-3.5 h-3.5 rounded-full border-2 border-[#00c9ff] bg-[var(--kq-bg)]"></div>
-              <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-                <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
-                  <div>
-                    <p class="font-semibold text-[var(--kq-text)] text-sm">Frontend Developer</p>
-                    <p class="text-[#00c9ff] text-xs font-mono">Bedrock Digital</p>
-                  </div>
-                  <span class="tag tag-blue text-xs">Nov 2024 – Abr 2025</span>
-                </div>
-                <ul class="text-[var(--kq-muted2)] text-xs space-y-1">
-                  <li>· QA WordPress y React.js: performance, UI/UX, responsividad</li>
-                  <li>· Integración de plugins SEO</li>
-                  <li>· Validación de layouts responsive</li>
-                  <li>· GitHub para issue tracking y code reviews</li>
+            <div class="tl">
+              <div class="when">Nov 2024 — Apr 2025</div>
+              <div>
+                <h4>Frontend Developer</h4>
+                <div class="org">Bedrock Digital</div>
+                <ul>
+                  <li data-i18n="j2b1">QA WordPress y React.js: performance, UI/UX, responsividad</li>
+                  <li data-i18n="j2b2">Integración de plugins SEO técnico</li>
+                  <li data-i18n="j2b3">Validación de layouts responsive</li>
                 </ul>
               </div>
             </div>
-
-            <!-- Education -->
-            <div class="relative pl-6">
-              <div class="absolute left-0 top-2.5 w-3.5 h-3.5 rounded-full border-2 border-[#666] bg-[var(--kq-bg)]"></div>
-              <div class="p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-                <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
-                  <div>
-                    <p class="font-semibold text-[var(--kq-text)] text-sm" data-i18n="edu_degree">Lic. Ciencias Computacionales</p>
-                    <p class="text-[var(--kq-muted2)] text-xs font-mono">BUAP — Benemérita Universidad Autónoma de Puebla</p>
-                  </div>
-                  <span class="tag tag-gray text-xs">2019–2024</span>
-                </div>
+            <div class="tl">
+              <div class="when">2019 — 2024</div>
+              <div>
+                <h4 data-i18n="edu">Lic. Ciencias Computacionales</h4>
+                <div class="org">BUAP — Benemérita Universidad Autónoma de Puebla</div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <!-- Languages -->
-          <div class="mt-8 p-4 rounded-lg border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-            <p class="text-[var(--kq-muted2)] text-xs font-mono mb-3 uppercase tracking-widest" data-i18n="label_languages">Idiomas</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="tag tag-green">Español C2</span>
-              <span class="tag tag-blue">English B2</span>
-              <span class="tag tag-gray">Français A1</span>
+  <!-- ═══════════════════ SERVICES ═══════════════════ -->
+  <section id="services" class="s">
+    <div class="container">
+      <div class="s-head reveal">
+        <span class="label" data-i18n="lbl_srv">Servicios · 02</span>
+        <h2 data-i18n="srv_h">Lo que <span class="grad">construyo.</span></h2>
+      </div>
+
+      <div class="services">
+        <article class="svc reveal">
+          <div class="svc-glyph fire float float-1">
+            <div class="surface">
+              <svg class="icon" viewBox="0 0 24 24">
+                <circle cx="5" cy="5.5" r="2"/>
+                <circle cx="13" cy="5.5" r="2"/>
+                <circle cx="11" cy="18.5" r="2"/>
+                <circle cx="19" cy="18.5" r="2"/>
+                <path d="M7 5.5h4"/>
+                <path d="M13 7.5v5a2 2 0 0 1-2 2"/>
+                <path d="M13 18.5h4"/>
+              </svg>
             </div>
           </div>
+          <h3 data-i18n="svc1_t">Automatización</h3>
+          <p data-i18n="svc1_p">n8n, Zapier, Make. Workflows end-to-end con error handling, logs y confiabilidad de producción.</p>
+          <div class="tags"><span class="tag">n8n</span><span class="tag">Zapier</span><span class="tag">Make</span></div>
+        </article>
+
+        <article class="svc reveal">
+          <div class="svc-glyph aqua float float-2">
+            <div class="surface">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M12 2.5 L4 5.5 v6 c0 4.8 3.4 8.4 8 10 c4.6-1.6 8-5.2 8-10 V5.5 z"/>
+                <path d="M8.5 12 l2.5 2.5 l4.5-5"/>
+              </svg>
+            </div>
+          </div>
+          <h3 data-i18n="svc2_t">QA &amp; Testing</h3>
+          <p data-i18n="svc2_p">Testing manual, regresión, smoke y edge-cases. Bug tracking y matrices completas.</p>
+          <div class="tags"><span class="tag">Manual</span><span class="tag">Regression</span><span class="tag">Playwright</span></div>
+        </article>
+
+        <article class="svc reveal">
+          <div class="svc-glyph violet float float-3">
+            <div class="surface">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M3.5 9 H17 m-3-3 l3 3 -3 3"/>
+                <path d="M20.5 15 H7 m3 3 l-3-3 3-3"/>
+              </svg>
+            </div>
+          </div>
+          <h3 data-i18n="svc3_t">API &amp; Webhooks</h3>
+          <p data-i18n="svc3_p">Conexión entre apps, sincronización en tiempo real y manejo robusto de errores.</p>
+          <div class="tags"><span class="tag">REST</span><span class="tag">Webhooks</span><span class="tag">JSON</span></div>
+        </article>
+
+        <article class="svc reveal">
+          <div class="svc-glyph lime float float-4">
+            <div class="surface">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M8 7.5 L2.5 12 L8 16.5"/>
+                <path d="M16 7.5 L21.5 12 L16 16.5"/>
+                <path d="M14 4.5 L10 19.5"/>
+              </svg>
+            </div>
+          </div>
+          <h3 data-i18n="svc4_t">Frontend Dev</h3>
+          <p data-i18n="svc4_p">React, WordPress, Shopify. Performance-first con SEO técnico desde el inicio.</p>
+          <div class="tags"><span class="tag">React</span><span class="tag">WordPress</span><span class="tag">Shopify</span></div>
+        </article>
+
+        <article class="svc reveal">
+          <div class="svc-glyph sun float float-5">
+            <div class="surface">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M3 18 C 6 18, 7 5, 12 5 C 17 5, 18 18, 21 18"/>
+                <circle class="fill" cx="3" cy="18" r="1.8" stroke="none"/>
+                <circle class="fill" cx="12" cy="5"  r="1.8" stroke="none"/>
+                <circle class="fill" cx="21" cy="18" r="1.8" stroke="none"/>
+                <circle class="fill" cx="7"  cy="12" r="1.2" stroke="none" opacity="0.75"/>
+                <circle class="fill" cx="17" cy="12" r="1.2" stroke="none" opacity="0.75"/>
+              </svg>
+            </div>
+          </div>
+          <h3 data-i18n="svc5_t">CX Operations</h3>
+          <p data-i18n="svc5_p">Customer journey mapping, eliminación de cuellos de botella, procesos escalables.</p>
+          <div class="tags"><span class="tag">Journey</span><span class="tag">Processes</span></div>
+        </article>
+
+        <article class="svc reveal">
+          <div class="svc-glyph iris float">
+            <div class="surface">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path class="fill" stroke="none" d="M12 2.5 L13.5 10.5 L21.5 12 L13.5 13.5 L12 21.5 L10.5 13.5 L2.5 12 L10.5 10.5 Z"/>
+                <circle class="fill" cx="19.5" cy="4.5" r="1.1" stroke="none"/>
+                <circle class="fill" cx="4.5"  cy="19.5" r="1.1" stroke="none"/>
+                <circle class="fill" cx="19.5" cy="19.5" r="0.7" stroke="none" opacity="0.7"/>
+              </svg>
+            </div>
+          </div>
+          <h3 data-i18n="svc6_t">AI Integration</h3>
+          <p data-i18n="svc6_p">OpenAI, Whisper, pipelines generativos. IA como infraestructura, no como gimmick.</p>
+          <div class="tags"><span class="tag">OpenAI</span><span class="tag">Whisper</span><span class="tag">LLM</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ PROJECTS ═══════════════════ -->
+  <section id="projects" class="s">
+    <div class="container">
+      <div class="s-head reveal">
+        <span class="label" data-i18n="lbl_proj">Proyectos · 03</span>
+        <h2 data-i18n="proj_h"><span class="grad">7 cosas</span> que se enviaron.</h2>
+      </div>
+
+      <div class="projects">
+        <article class="proj feature reveal">
+          <div class="proj-top">
+            <div class="proj-orb"><div class="surface"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="1.7"/><circle cx="18" cy="6" r="1.7"/><circle cx="12" cy="18" r="1.7"/><path d="M7.7 7 L10.7 16.5"/><path d="M16.3 7 L13.3 16.5"/><path d="M8 6h8"/></svg></div></div>
+            <div class="proj-actions"><a href="https://github.com/scampt/n8n-bodas" target="_blank" rel="noopener" aria-label="GitHub"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div>
+          </div>
+          <span class="proj-num">01 · 2024</span>
+          <h3>n8n Bodas</h3>
+          <p data-i18n="p1d">Automatización completa para gestión de eventos: scraping, email tracking y CRM sync. La planner pasó de "creo que tengo 200 leads" a una lista real, dateada y scoreada.</p>
+          <div class="tags"><span class="tag hot">n8n</span><span class="tag">Scraping</span><span class="tag">CRM</span></div>
+        </article>
+
+        <article class="proj feature reveal">
+          <div class="proj-top">
+            <div class="proj-orb"><div class="surface"><svg viewBox="0 0 24 24"><path d="M4 5 h16 a1 1 0 0 1 1 1 v9 a1 1 0 0 1 -1 1 h-9 l-4 4 v-4 h-3 a1 1 0 0 1 -1 -1 v-9 a1 1 0 0 1 1 -1z"/><circle class="fill" cx="9" cy="10.5" r="1" stroke="none"/><circle class="fill" cx="12" cy="10.5" r="1" stroke="none"/><circle class="fill" cx="15" cy="10.5" r="1" stroke="none"/></svg></div></div>
+            <div class="proj-actions"><a href="https://github.com/scampt/n8n-jousfit" target="_blank" rel="noopener" aria-label="GitHub"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div>
+          </div>
+          <span class="proj-num">02 · 2024–25</span>
+          <h3>n8n JousFit</h3>
+          <p data-i18n="p2d">Fitness CRM: Chatwoot V0–V10, buffer humano, detección de fraude Shopify e IA conversacional. Tiempo de respuesta de 4 horas a 12 minutos.</p>
+          <div class="tags"><span class="tag hot">n8n</span><span class="tag hot">OpenAI</span><span class="tag">Shopify</span></div>
+        </article>
+
+        <article class="proj reveal">
+          <div class="proj-top">
+            <div class="proj-orb"><div class="surface"><svg viewBox="0 0 24 24"><path d="M5 11 V13"/><path d="M8 9 V15"/><path d="M11 6 V18"/><path d="M14 8 V16"/><path d="M17 4 V20"/><path d="M20 10 V14"/></svg></div></div>
+            <div class="proj-actions"><a href="https://github.com/scampt/n8n-valt" target="_blank" rel="noopener" aria-label="GitHub"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div>
+          </div>
+          <span class="proj-num">03 · 2025</span>
+          <h3>n8n Valt</h3>
+          <p data-i18n="p3d">Marketing pipeline: Mailchimp, Hotmart, Whisper transcription y contenido con IA. $0.12 por lección.</p>
+          <div class="tags"><span class="tag hot">n8n</span><span class="tag">Whisper</span></div>
+        </article>
+
+        <article class="proj reveal">
+          <div class="proj-top">
+            <div class="proj-orb"><div class="surface"><svg viewBox="0 0 24 24"><path d="M12 5 V19"/><path d="M5 12 H19"/></svg></div></div>
+            <div class="proj-actions"><a href="https://ahfmedicalcentre.org.jm/" target="_blank" rel="noopener" aria-label="Live"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></a></div>
+          </div>
+          <span class="proj-num">04 · 2025</span>
+          <h3>AHF Jamaica</h3>
+          <p data-i18n="p4d">Sitio web para centro médico en Kingston. Tráfico orgánico +230% en cuatro meses.</p>
+          <div class="tags"><span class="tag">WordPress</span><span class="tag">SEO</span></div>
+        </article>
+
+        <article class="proj reveal">
+          <div class="proj-top">
+            <div class="proj-orb"><div class="surface"><svg viewBox="0 0 24 24"><path d="M5 18 V14"/><path d="M11 18 V10"/><path d="M17 18 V6"/><path d="M3 18 H21"/></svg></div></div>
+            <div class="proj-actions"><a href="https://paragonisg.com/" target="_blank" rel="noopener" aria-label="Live"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></a></div>
+          </div>
+          <span class="proj-num">05 · 2025</span>
+          <h3>Paragon ISG</h3>
+          <p data-i18n="p5d">Sitio corporativo para consultora. Time-on-site duplicado, 3 inbound RFPs en 60 días.</p>
+          <div class="tags"><span class="tag">WordPress</span><span class="tag">Corporate</span></div>
+        </article>
+
+        <article class="proj reveal">
+          <div class="proj-top">
+            <div class="proj-orb"><div class="surface"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="9" ry="2.5" transform="rotate(-15 12 12)"/></svg></div></div>
+            <div class="proj-actions">
+              <a href="https://scampt.github.io/LutherAlien/" target="_blank" rel="noopener" aria-label="Live"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg></a>
+              <a href="https://github.com/scampt/LutherAlien" target="_blank" rel="noopener" aria-label="GitHub"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+            </div>
+          </div>
+          <span class="proj-num">06 · 2023</span>
+          <h3>LutherAlien</h3>
+          <p data-i18n="p6d">NFT landing con animaciones, wallet connect y diseño generativo. Web3 experimental.</p>
+          <div class="tags"><span class="tag">NFT</span><span class="tag">Web3</span></div>
+        </article>
+
+        <article class="proj wide reveal">
+          <div class="proj-top">
+            <div class="proj-orb"><div class="surface"><svg viewBox="0 0 24 24"><path d="M5 5 V12 a3 3 0 0 0 3 3 H16"/><path d="M13 12 L16 15 L13 18"/></svg></div></div>
+            <div class="proj-actions"><a href="https://github.com/scampt/vantageWPRedirect" target="_blank" rel="noopener" aria-label="GitHub"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div>
+          </div>
+          <span class="proj-num">07 · 2025</span>
+          <h3>VantageWP Redirect</h3>
+          <p data-i18n="p7d">Plugin WordPress para redirección inteligente basada en parámetros UTM y comportamiento del usuario. Cero bug reports en producción este trimestre, corriendo en 6 sitios cliente.</p>
+          <div class="tags"><span class="tag">WordPress</span><span class="tag">Plugin</span><span class="tag">UTM</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ STACK ═══════════════════ -->
+  <section id="stack" class="s">
+    <div class="container">
+      <div class="s-head reveal">
+        <span class="label">Stack · 04</span>
+        <h2 data-i18n="stack_h">Herramientas del <span class="grad">oficio.</span></h2>
+      </div>
+
+      <div class="stack">
+        <div class="stack-group reveal">
+          <div class="gh fire"><span data-i18n="g_auto">Automation</span><span class="grad-num">04</span></div>
+          <div class="stack-pills">
+            <span class="pill hot">n8n</span>
+            <span class="pill hot">Zapier</span>
+            <span class="pill hot">Make</span>
+            <span class="pill hot">OpenAI</span>
+          </div>
+        </div>
+        <div class="stack-group reveal">
+          <div class="gh"><span>Frontend</span><span class="grad-num">05</span></div>
+          <div class="stack-pills">
+            <span class="pill aqua">React</span>
+            <span class="pill aqua">TypeScript</span>
+            <span class="pill aqua">Astro</span>
+            <span class="pill aqua">Vite</span>
+            <span class="pill aqua">Tailwind</span>
+          </div>
+        </div>
+        <div class="stack-group reveal">
+          <div class="gh violet"><span>CMS / E-com</span><span class="grad-num">02</span></div>
+          <div class="stack-pills">
+            <span class="pill violet">WordPress</span>
+            <span class="pill violet">Shopify</span>
+          </div>
+        </div>
+        <div class="stack-group reveal">
+          <div class="gh lime"><span>QA &amp; Testing</span><span class="grad-num">03</span></div>
+          <div class="stack-pills">
+            <span class="pill lime">Playwright</span>
+            <span class="pill lime">Selenium</span>
+            <span class="pill lime">Manual QA</span>
+          </div>
+        </div>
+        <div class="stack-group reveal">
+          <div class="gh sun"><span data-i18n="g_tools">Tools</span><span class="grad-num">07</span></div>
+          <div class="stack-pills">
+            <span class="pill">Jira</span>
+            <span class="pill">Trello</span>
+            <span class="pill">Notion</span>
+            <span class="pill">Slack</span>
+            <span class="pill">Loom</span>
+            <span class="pill">Git</span>
+            <span class="pill">GitHub</span>
+          </div>
+        </div>
+        <div class="stack-group reveal">
+          <div class="gh fire"><span>Infra</span><span class="grad-num">03</span></div>
+          <div class="stack-pills">
+            <span class="pill hot">Vercel</span>
+            <span class="pill hot">Cloudflare</span>
+            <span class="pill hot">Docker</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================== SERVICES ===================== -->
-  <section id="services" class="py-20 px-6 section-dim">
-    <div class="max-w-6xl mx-auto">
-      <div class="fade-in mb-12">
-        <span class="section-label" data-i18n="section_services">SERVICIOS</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2" data-i18n="services_title">Lo que construyo.</h2>
+  <!-- ═══════════════════ NOTES ═══════════════════ -->
+  <section id="notes" class="s">
+    <div class="container">
+      <div class="s-head reveal">
+        <span class="label">Notes · 05</span>
+        <h2 data-i18n="notes_h">Notas <span class="grad">técnicas.</span></h2>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-in-stagger">
-        <!-- 1 -->
-        <div class="p-6 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <div class="w-10 h-10 rounded-lg bg-[rgba(0,255,136,0.1)] flex items-center justify-center mb-4">
-            <svg width="20" height="20" fill="none" stroke="#00ff88" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 0-4.5H6v4.5Zm0 0H3.75m2.25 0v4.5m0-4.5h6.75m-6.75 4.5H3.75M6 15h2.25a2.25 2.25 0 0 1 0 4.5H6V15Z"/></svg>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2" data-i18n="svc1_title">No-Code Automation</h3>
-          <p class="text-[var(--kq-muted2)] text-sm leading-relaxed" data-i18n="svc1_desc">n8n, Zapier, Make. Workflows end-to-end con error handling, logs y confiabilidad de producción.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-green">n8n</span>
-            <span class="tag tag-green">Zapier</span>
-            <span class="tag tag-green">Make</span>
-          </div>
-        </div>
-
-        <!-- 2 -->
-        <div class="p-6 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <div class="w-10 h-10 rounded-lg bg-[rgba(0,201,255,0.1)] flex items-center justify-center mb-4">
-            <svg width="20" height="20" fill="none" stroke="#00c9ff" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/></svg>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2" data-i18n="svc2_title">QA &amp; Testing</h3>
-          <p class="text-[var(--kq-muted2)] text-sm leading-relaxed" data-i18n="svc2_desc">Testing manual, regresión, smoke y edge-cases. Bug tracking y matrices de prueba completas.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-blue">Manual</span>
-            <span class="tag tag-blue">Regression</span>
-            <span class="tag tag-blue">Playwright</span>
-          </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="p-6 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <div class="w-10 h-10 rounded-lg bg-[rgba(168,85,247,0.1)] flex items-center justify-center mb-4">
-            <svg width="20" height="20" fill="none" stroke="#a855f7" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"/></svg>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2" data-i18n="svc3_title">API &amp; Webhook Integration</h3>
-          <p class="text-[var(--kq-muted2)] text-sm leading-relaxed" data-i18n="svc3_desc">Conexión entre apps, sincronización de datos en tiempo real y manejo robusto de errores.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-purple">REST</span>
-            <span class="tag tag-purple">Webhooks</span>
-            <span class="tag tag-purple">JSON</span>
-          </div>
-        </div>
-
-        <!-- 4 -->
-        <div class="p-6 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <div class="w-10 h-10 rounded-lg bg-[rgba(234,179,8,0.1)] flex items-center justify-center mb-4">
-            <svg width="20" height="20" fill="none" stroke="#eab308" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2" data-i18n="svc4_title">Frontend Development</h3>
-          <p class="text-[var(--kq-muted2)] text-sm leading-relaxed" data-i18n="svc4_desc">React, WordPress, Shopify. Performance-first con SEO técnico integrado desde el inicio.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-yellow">React</span>
-            <span class="tag tag-yellow">WordPress</span>
-            <span class="tag tag-yellow">Shopify</span>
-          </div>
-        </div>
-
-        <!-- 5 -->
-        <div class="p-6 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <div class="w-10 h-10 rounded-lg bg-[rgba(249,115,22,0.1)] flex items-center justify-center mb-4">
-            <svg width="20" height="20" fill="none" stroke="#f97316" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2" data-i18n="svc5_title">CX Operations</h3>
-          <p class="text-[var(--kq-muted2)] text-sm leading-relaxed" data-i18n="svc5_desc">Customer journey mapping, eliminación de cuellos de botella, diseño de procesos escalables.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-orange">Journey Map</span>
-            <span class="tag tag-orange">Processes</span>
-          </div>
-        </div>
-
-        <!-- 6 -->
-        <div class="p-6 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <div class="w-10 h-10 rounded-lg bg-[rgba(0,255,136,0.1)] flex items-center justify-center mb-4">
-            <svg width="20" height="20" fill="none" stroke="#00ff88" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"/></svg>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2" data-i18n="svc6_title">AI Integration</h3>
-          <p class="text-[var(--kq-muted2)] text-sm leading-relaxed" data-i18n="svc6_desc">OpenAI, Whisper, pipelines generativos. IA como infraestructura, no como gimmick.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-green">OpenAI</span>
-            <span class="tag tag-green">Whisper</span>
-            <span class="tag tag-green">LLM</span>
-          </div>
-        </div>
+      <div class="notes-grid">
+        <article class="note reveal">
+          <div class="cat"><span class="dot fire"></span>Automation · 15 May 2026</div>
+          <h3 data-i18n="n1t">Por qué n8n ganó la guerra del no-code en producción</h3>
+          <p data-i18n="n1e">Trade-offs reales entre n8n self-hosted, Zapier y Make cuando tu workflow corre 24/7.</p>
+          <div class="meta"><span>8 MIN</span><span>→</span></div>
+        </article>
+        <article class="note reveal">
+          <div class="cat"><span class="dot aqua"></span>QA · 02 May 2026</div>
+          <h3 data-i18n="n2t">Testing de workflows: la matriz que uso para no romper producción</h3>
+          <p data-i18n="n2e">Pruebas unitarias, smoke tests y rollback plans aplicados a automatizaciones.</p>
+          <div class="meta"><span>12 MIN</span><span>→</span></div>
+        </article>
+        <article class="note reveal">
+          <div class="cat"><span class="dot violet"></span>AI · 19 Apr 2026</div>
+          <h3 data-i18n="n3t">OpenAI dentro de n8n: arquitectura para pipelines confiables</h3>
+          <p data-i18n="n3e">Reintentos, validación de salidas, costos predecibles con un LLM en medio del flujo.</p>
+          <div class="meta"><span>10 MIN</span><span>→</span></div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ===================== PROJECTS ===================== -->
-  <section id="projects" class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="fade-in mb-12">
-        <span class="section-label" data-i18n="section_projects">PROYECTOS</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2" data-i18n="projects_title">Trabajo real.</h2>
-      </div>
+  <!-- ═══════════════════ CONTACT ═══════════════════ -->
+  <section id="contact" class="s">
+    <div class="container">
+      <div class="contact-wrap reveal">
+        <div class="contact-grid">
+          <div class="contact-side">
+            <span class="label" data-i18n="lbl_con">Contacto · 06</span>
+            <h3 style="margin-top:24px;" data-i18n="contact_h">¿Tienes un <span class="grad">workflow</span> que romper?</h3>
+            <p data-i18n="contact_p">Proyectos de automatización, QA o desarrollo frontend. Respondo en menos de 24h, en español o en inglés.</p>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-in-stagger">
-        <!-- n8n Bodas -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow flex flex-col">
-          <div class="flex items-start justify-between mb-3">
-            <span class="font-mono text-xs text-[var(--kq-muted2)]">01</span>
-            <div class="flex gap-2">
-              <a href="https://github.com/scampt/n8n-bodas" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[var(--kq-text)] transition-colors" aria-label="GitHub">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <div class="contact-list">
+              <a href="mailto:luis.kevin.quiroz@gmail.com" class="contact-line mail">
+                <span class="ico"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg></span>
+                <div><span class="what">Email</span><span class="who">luis.kevin.quiroz@gmail.com</span></div>
+                <span class="arr">→</span>
+              </a>
+              <a href="https://wa.me/527351842906" target="_blank" rel="noopener" class="contact-line wa">
+                <span class="ico"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413"/></svg></span>
+                <div><span class="what">WhatsApp</span><span class="who">+52 735 184 2906</span></div>
+                <span class="arr">→</span>
+              </a>
+              <a href="https://www.linkedin.com/in/kevinquirozmx/" target="_blank" rel="noopener" class="contact-line ln">
+                <span class="ico"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"/></svg></span>
+                <div><span class="what">LinkedIn</span><span class="who">/in/kevinquirozmx</span></div>
+                <span class="arr">→</span>
               </a>
             </div>
           </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2">n8n Bodas</h3>
-          <p class="text-[var(--kq-muted2)] text-sm flex-1" data-i18n="proj1_desc">Automatización completa para gestión de eventos: scraping, email tracking y CRM sync.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-green">n8n</span>
-            <span class="tag tag-purple">Scraping</span>
-            <span class="tag tag-blue">CRM</span>
-          </div>
-        </div>
 
-        <!-- n8n JousFit -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow flex flex-col">
-          <div class="flex items-start justify-between mb-3">
-            <span class="font-mono text-xs text-[var(--kq-muted2)]">02</span>
-            <a href="https://github.com/scampt/n8n-jousfit" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[var(--kq-text)] transition-colors" aria-label="GitHub">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2">n8n JousFit</h3>
-          <p class="text-[var(--kq-muted2)] text-sm flex-1" data-i18n="proj2_desc">Fitness: Chatwoot V0–V10, buffer humano, detección de fraude Shopify e IA conversacional.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-green">n8n</span>
-            <span class="tag tag-green">OpenAI</span>
-            <span class="tag tag-orange">Shopify</span>
-          </div>
-        </div>
-
-        <!-- n8n Valt -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow flex flex-col">
-          <div class="flex items-start justify-between mb-3">
-            <span class="font-mono text-xs text-[var(--kq-muted2)]">03</span>
-            <a href="https://github.com/scampt/n8n-valt" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[var(--kq-text)] transition-colors" aria-label="GitHub">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2">n8n Valt</h3>
-          <p class="text-[var(--kq-muted2)] text-sm flex-1" data-i18n="proj3_desc">Marketing: Mailchimp, Hotmart, Whisper transcription y pipeline de contenido con IA.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-green">n8n</span>
-            <span class="tag tag-green">Whisper</span>
-            <span class="tag tag-blue">Mailchimp</span>
-          </div>
-        </div>
-
-        <!-- AHF Jamaica -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow flex flex-col">
-          <div class="flex items-start justify-between mb-3">
-            <span class="font-mono text-xs text-[var(--kq-muted2)]">04</span>
-            <a href="https://ahfmedicalcentre.org.jm/" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[#00c9ff] transition-colors" aria-label="Live site">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-            </a>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2">AHF Jamaica</h3>
-          <p class="text-[var(--kq-muted2)] text-sm flex-1" data-i18n="proj4_desc">Sitio web para centro médico en Jamaica. Diseño limpio, SEO técnico y performance optimizado.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-yellow">WordPress</span>
-            <span class="tag tag-blue">SEO</span>
-            <span class="tag tag-gray">Client</span>
-          </div>
-        </div>
-
-        <!-- Paragon ISG -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow flex flex-col">
-          <div class="flex items-start justify-between mb-3">
-            <span class="font-mono text-xs text-[var(--kq-muted2)]">05</span>
-            <a href="https://paragonisg.com/" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[#00c9ff] transition-colors" aria-label="Live site">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-            </a>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2">Paragon ISG</h3>
-          <p class="text-[var(--kq-muted2)] text-sm flex-1" data-i18n="proj5_desc">Sitio corporativo para firma de consultoría. Branding, estructura de contenido y performance.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-yellow">WordPress</span>
-            <span class="tag tag-blue">Corporate</span>
-            <span class="tag tag-gray">Client</span>
-          </div>
-        </div>
-
-        <!-- LutherAlien -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow flex flex-col">
-          <div class="flex items-start justify-between mb-3">
-            <span class="font-mono text-xs text-[var(--kq-muted2)]">06</span>
-            <div class="flex gap-2">
-              <a href="https://scampt.github.io/LutherAlien/" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[#00c9ff] transition-colors" aria-label="Live site">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-              </a>
-              <a href="https://github.com/scampt/LutherAlien" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[var(--kq-text)] transition-colors" aria-label="GitHub">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              </a>
+          <form class="contact-form" action="https://formspree.io/f/mayzpleg" method="POST">
+            <div class="field">
+              <label data-i18n="f_name">Nombre</label>
+              <input type="text" name="name" required placeholder="Tu nombre" />
             </div>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2">LutherAlien</h3>
-          <p class="text-[var(--kq-muted2)] text-sm flex-1" data-i18n="proj6_desc">NFT landing page con animaciones, wallet connect y diseño generativo. Web3 experimental.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-purple">NFT</span>
-            <span class="tag tag-yellow">Web3</span>
-            <span class="tag tag-gray">Landing</span>
-          </div>
-        </div>
-
-        <!-- VantageWP Redirect -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow flex flex-col sm:col-span-2 lg:col-span-1">
-          <div class="flex items-start justify-between mb-3">
-            <span class="font-mono text-xs text-[var(--kq-muted2)]">07</span>
-            <a href="https://github.com/scampt/vantageWPRedirect" target="_blank" rel="noopener" class="text-[var(--kq-muted)] hover:text-[var(--kq-text)] transition-colors" aria-label="GitHub">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-          <h3 class="font-semibold text-[var(--kq-text)] mb-2">VantageWP Redirect</h3>
-          <p class="text-[var(--kq-muted2)] text-sm flex-1" data-i18n="proj7_desc">Plugin WordPress para redirección inteligente basada en parámetros UTM y comportamiento del usuario.</p>
-          <div class="flex flex-wrap gap-1.5 mt-4">
-            <span class="tag tag-yellow">WordPress</span>
-            <span class="tag tag-purple">Plugin</span>
-            <span class="tag tag-blue">UTM</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== STACK ===================== -->
-  <section id="stack" class="py-20 px-6 section-dim">
-    <div class="max-w-6xl mx-auto">
-      <div class="fade-in mb-12">
-        <span class="section-label">STACK</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2" data-i18n="stack_title">Herramientas del oficio.</h2>
-      </div>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-in-stagger">
-        <!-- Automation -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <p class="font-mono text-xs text-[#00ff88] mb-4 uppercase tracking-widest" data-i18n="stack_auto">Automatización</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag tag-green">n8n</span>
-            <span class="tag tag-green">Zapier</span>
-            <span class="tag tag-green">Make</span>
-            <span class="tag tag-green">OpenAI</span>
-          </div>
-        </div>
-
-        <!-- Frontend -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <p class="font-mono text-xs text-[#00c9ff] mb-4 uppercase tracking-widest">Frontend</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag tag-yellow">React</span>
-            <span class="tag tag-yellow">TypeScript</span>
-            <span class="tag tag-yellow">Astro</span>
-            <span class="tag tag-yellow">Vite</span>
-            <span class="tag tag-yellow">Tailwind</span>
-          </div>
-        </div>
-
-        <!-- CMS/E-commerce -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <p class="font-mono text-xs text-[#a855f7] mb-4 uppercase tracking-widest">CMS / E-commerce</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag tag-purple">WordPress</span>
-            <span class="tag tag-purple">Shopify</span>
-          </div>
-        </div>
-
-        <!-- QA -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <p class="font-mono text-xs text-[#00c9ff] mb-4 uppercase tracking-widest">QA &amp; Testing</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag tag-blue">Playwright</span>
-            <span class="tag tag-blue">Selenium</span>
-            <span class="tag tag-blue">Manual QA</span>
-          </div>
-        </div>
-
-        <!-- Tools -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <p class="font-mono text-xs text-[#eab308] mb-4 uppercase tracking-widest" data-i18n="stack_tools">Herramientas</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag tag-gray">Jira</span>
-            <span class="tag tag-gray">Trello</span>
-            <span class="tag tag-gray">Notion</span>
-            <span class="tag tag-gray">Slack</span>
-            <span class="tag tag-gray">Loom</span>
-            <span class="tag tag-gray">Git</span>
-            <span class="tag tag-gray">GitHub</span>
-          </div>
-        </div>
-
-        <!-- Infra -->
-        <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)] card-glow">
-          <p class="font-mono text-xs text-[#f97316] mb-4 uppercase tracking-widest">Infra &amp; Deploy</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag tag-orange">Vercel</span>
-            <span class="tag tag-orange">Cloudflare</span>
-            <span class="tag tag-orange">Docker</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== CONTACT ===================== -->
-  <section id="contact" class="py-20 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="fade-in mb-12">
-        <span class="section-label" data-i18n="section_contact">CONTACTO</span>
-        <h2 class="text-3xl md:text-4xl font-bold mt-2" data-i18n="contact_title">Trabajemos juntos.</h2>
-        <p class="text-[var(--kq-muted2)] mt-3 max-w-xl" data-i18n="contact_subtitle">
-          ¿Proyecto de automatización o CX? Escríbeme y hablamos.
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-10">
-        <!-- Form -->
-        <div class="fade-in">
-          <form
-            action="https://formspree.io/f/mayzpleg"
-            method="POST"
-            class="space-y-4"
-          >
-            <div>
-              <label class="block text-sm text-[var(--kq-muted2)] mb-1.5 font-mono" for="name" data-i18n="form_name">Nombre</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                class="w-full px-4 py-3 rounded-lg bg-[var(--kq-surface)] border border-[var(--kq-border)] text-[var(--kq-text)] text-sm placeholder-[var(--kq-muted3)] focus:outline-none focus:border-[#00ff88] transition-colors"
-                data-i18n-placeholder="form_name_ph"
-                placeholder="Tu nombre"
-              />
+            <div class="field">
+              <label data-i18n="f_mail">Email</label>
+              <input type="email" name="email" required placeholder="tu@email.com" />
             </div>
-            <div>
-              <label class="block text-sm text-[var(--kq-muted2)] mb-1.5 font-mono" for="email" data-i18n="form_email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                class="w-full px-4 py-3 rounded-lg bg-[var(--kq-surface)] border border-[var(--kq-border)] text-[var(--kq-text)] text-sm placeholder-[var(--kq-muted3)] focus:outline-none focus:border-[#00ff88] transition-colors"
-                placeholder="tu@email.com"
-              />
+            <div class="field">
+              <label data-i18n="f_msg">Proyecto</label>
+              <textarea name="message" rows="5" required placeholder="Cuéntame qué necesitas, plazos, presupuesto si lo tienes..."></textarea>
             </div>
-            <div>
-              <label class="block text-sm text-[var(--kq-muted2)] mb-1.5 font-mono" for="message" data-i18n="form_msg">Mensaje</label>
-              <textarea
-                id="message"
-                name="message"
-                rows="5"
-                required
-                class="w-full px-4 py-3 rounded-lg bg-[var(--kq-surface)] border border-[var(--kq-border)] text-[var(--kq-text)] text-sm placeholder-[var(--kq-muted3)] focus:outline-none focus:border-[#00ff88] transition-colors resize-none"
-                data-i18n-placeholder="form_msg_ph"
-                placeholder="Cuéntame tu proyecto..."
-              ></textarea>
+            <div class="submit-row">
+              <span class="small" data-i18n="f_small">RESPUESTA EN &lt; 24H</span>
+              <button type="submit" class="btn btn-primary">
+                <span data-i18n="f_send">Enviar</span>
+                <span class="arr">↗</span>
+              </button>
             </div>
-            <button
-              type="submit"
-              class="w-full py-3 rounded-lg bg-[#00ff88] text-[#0a0a0f] font-semibold text-sm hover:bg-white transition-colors"
-              data-i18n="form_submit"
-            >
-              Enviar mensaje
-            </button>
           </form>
-        </div>
-
-        <!-- Direct contact info -->
-        <div class="fade-in space-y-5">
-          <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-            <p class="font-mono text-xs text-[var(--kq-muted2)] mb-3 uppercase tracking-widest" data-i18n="contact_direct">Contacto directo</p>
-            <div class="space-y-3">
-              <a href="mailto:luis.kevin.quiroz@gmail.com" class="flex items-center gap-3 text-sm text-[var(--kq-muted)] hover:text-[#00ff88] transition-colors group">
-                <span class="w-8 h-8 rounded-lg bg-[rgba(0,255,136,0.08)] flex items-center justify-center group-hover:bg-[rgba(0,255,136,0.15)] transition-colors">
-                  <svg width="14" height="14" fill="none" stroke="#00ff88" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
-                </span>
-                luis.kevin.quiroz@gmail.com
-              </a>
-              <a href="https://wa.me/527351842906" target="_blank" rel="noopener" class="flex items-center gap-3 text-sm text-[var(--kq-muted)] hover:text-[#00ff88] transition-colors group">
-                <span class="w-8 h-8 rounded-lg bg-[rgba(0,255,136,0.08)] flex items-center justify-center group-hover:bg-[rgba(0,255,136,0.15)] transition-colors">
-                  <svg width="14" height="14" fill="#00ff88" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-                </span>
-                +52 735 184 2906
-              </a>
-              <a href="https://www.linkedin.com/in/kevinquirozmx/" target="_blank" rel="noopener" class="flex items-center gap-3 text-sm text-[var(--kq-muted)] hover:text-[#00c9ff] transition-colors group">
-                <span class="w-8 h-8 rounded-lg bg-[rgba(0,201,255,0.08)] flex items-center justify-center group-hover:bg-[rgba(0,201,255,0.15)] transition-colors">
-                  <svg width="14" height="14" fill="#00c9ff" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </span>
-                linkedin.com/in/kevinquirozmx
-              </a>
-            </div>
-          </div>
-
-          <div class="p-5 rounded-xl border border-[var(--kq-border)] bg-[var(--kq-surface)]">
-            <p class="font-mono text-xs text-[var(--kq-muted2)] mb-3 uppercase tracking-widest" data-i18n="contact_location">Ubicación</p>
-            <p class="text-[var(--kq-muted)] text-sm">Morelos, México · Remoto worldwide</p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <span class="tag tag-green" data-i18n="available_badge">Disponible</span>
-              <span class="tag tag-gray">Freelance</span>
-              <span class="tag tag-gray">Full-time</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -619,200 +478,53 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script is:inline>
-  // ── Translations ──────────────────────────────────────────────────────────
-  const t = {
-    es: {
-      hero_status: "Disponible para proyectos",
-      cta_projects: "Ver Proyectos",
-      cta_contact: "Contáctame",
-      section_about: "SOBRE MÍ",
-      about_title: "Construyo sistemas que no fallan.",
-      fact_years: "años de experiencia",
-      fact_workflows: "workflows en producción",
-      fact_projects: "proyectos destacados",
-      fact_langs: "idiomas",
-      section_experience: "EXPERIENCIA",
-      edu_degree: "Lic. Ciencias Computacionales",
-      label_languages: "Idiomas",
-      section_services: "SERVICIOS",
-      services_title: "Lo que construyo.",
-      svc1_title: "No-Code Automation",
-      svc1_desc: "n8n, Zapier, Make. Workflows end-to-end con error handling, logs y confiabilidad de producción.",
-      svc2_title: "QA & Testing",
-      svc2_desc: "Testing manual, regresión, smoke y edge-cases. Bug tracking y matrices de prueba completas.",
-      svc3_title: "API & Webhook Integration",
-      svc3_desc: "Conexión entre apps, sincronización de datos en tiempo real y manejo robusto de errores.",
-      svc4_title: "Frontend Development",
-      svc4_desc: "React, WordPress, Shopify. Performance-first con SEO técnico integrado desde el inicio.",
-      svc5_title: "CX Operations",
-      svc5_desc: "Customer journey mapping, eliminación de cuellos de botella, diseño de procesos escalables.",
-      svc6_title: "AI Integration",
-      svc6_desc: "OpenAI, Whisper, pipelines generativos. IA como infraestructura, no como gimmick.",
-      section_projects: "PROYECTOS",
-      projects_title: "Trabajo real.",
-      proj1_desc: "Automatización completa para gestión de eventos: scraping, email tracking y CRM sync.",
-      proj2_desc: "Fitness: Chatwoot V0–V10, buffer humano, detección de fraude Shopify e IA conversacional.",
-      proj3_desc: "Marketing: Mailchimp, Hotmart, Whisper transcription y pipeline de contenido con IA.",
-      proj4_desc: "Sitio web para centro médico en Jamaica. Diseño limpio, SEO técnico y performance optimizado.",
-      proj5_desc: "Sitio corporativo para firma de consultoría. Branding, estructura de contenido y performance.",
-      proj6_desc: "NFT landing page con animaciones, wallet connect y diseño generativo. Web3 experimental.",
-      proj7_desc: "Plugin WordPress para redirección inteligente basada en parámetros UTM y comportamiento del usuario.",
-      stack_title: "Herramientas del oficio.",
-      stack_auto: "Automatización",
-      stack_tools: "Herramientas",
-      section_contact: "CONTACTO",
-      contact_title: "Trabajemos juntos.",
-      contact_subtitle: "¿Proyecto de automatización o CX? Escríbeme y hablamos.",
-      contact_direct: "Contacto directo",
-      contact_location: "Ubicación",
-      form_name: "Nombre",
-      form_name_ph: "Tu nombre",
-      form_email: "Email",
-      form_msg: "Mensaje",
-      form_msg_ph: "Cuéntame tu proyecto...",
-      form_submit: "Enviar mensaje",
-      available_badge: "Disponible",
-    },
-    en: {
-      hero_status: "Available for projects",
-      cta_projects: "View Projects",
-      cta_contact: "Contact Me",
-      section_about: "ABOUT ME",
-      about_title: "I build systems that don't break.",
-      fact_years: "years of experience",
-      fact_workflows: "workflows in production",
-      fact_projects: "featured projects",
-      fact_langs: "languages",
-      section_experience: "EXPERIENCE",
-      edu_degree: "B.Sc. Computer Science",
-      label_languages: "Languages",
-      section_services: "SERVICES",
-      services_title: "What I build.",
-      svc1_title: "No-Code Automation",
-      svc1_desc: "n8n, Zapier, Make. End-to-end workflows with error handling, logs and production reliability.",
-      svc2_title: "QA & Testing",
-      svc2_desc: "Manual, regression, smoke and edge-case testing. Bug tracking and full test matrices.",
-      svc3_title: "API & Webhook Integration",
-      svc3_desc: "App-to-app connections, real-time data sync and robust error handling.",
-      svc4_title: "Frontend Development",
-      svc4_desc: "React, WordPress, Shopify. Performance-first with technical SEO baked in from the start.",
-      svc5_title: "CX Operations",
-      svc5_desc: "Customer journey mapping, bottleneck removal and scalable process design.",
-      svc6_title: "AI Integration",
-      svc6_desc: "OpenAI, Whisper, generative pipelines. AI as infrastructure, not a gimmick.",
-      section_projects: "PROJECTS",
-      projects_title: "Real work.",
-      proj1_desc: "Full automation for event management: scraping, email tracking and CRM sync.",
-      proj2_desc: "Fitness: Chatwoot V0–V10, human buffer, Shopify fraud detection and conversational AI.",
-      proj3_desc: "Marketing: Mailchimp, Hotmart, Whisper transcription and AI content pipeline.",
-      proj4_desc: "Website for a medical centre in Jamaica. Clean design, technical SEO and optimised performance.",
-      proj5_desc: "Corporate website for a consulting firm. Branding, content structure and performance.",
-      proj6_desc: "NFT landing page with animations, wallet connect and generative design. Experimental Web3.",
-      proj7_desc: "WordPress plugin for smart redirect based on UTM parameters and user behaviour.",
-      stack_title: "Tools of the trade.",
-      stack_auto: "Automation",
-      stack_tools: "Tools",
-      section_contact: "CONTACT",
-      contact_title: "Let's work together.",
-      contact_subtitle: "Automation or CX project? Send me a message and let's talk.",
-      contact_direct: "Direct contact",
-      contact_location: "Location",
-      form_name: "Name",
-      form_name_ph: "Your name",
-      form_email: "Email",
-      form_msg: "Message",
-      form_msg_ph: "Tell me about your project...",
-      form_submit: "Send message",
-      available_badge: "Available",
+  /* ════════════ Hero orb follows cursor ════════════ */
+  (function(){
+    const orb = document.getElementById('hero-orb');
+    if (!orb) return;
+    let mx = innerWidth/2, my = innerHeight/2;
+    let cx = mx, cy = my;
+    addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+    function tick(){
+      cx += (mx - cx) * 0.045;
+      cy += (my - cy) * 0.045;
+      const r = orb.parentElement.getBoundingClientRect();
+      const ax = (cx - (r.left + r.width/2)) / r.width;
+      const ay = (cy - (r.top  + r.height/2)) / r.height;
+      const tx = Math.max(-0.7, Math.min(0.7, ax)) * 50;
+      const ty = Math.max(-0.7, Math.min(0.7, ay)) * 50;
+      orb.style.transform = `translate(${tx}px, ${ty}px)`;
+      requestAnimationFrame(tick);
     }
-  };
+    requestAnimationFrame(tick);
+  })();
 
-  // Extend Layout translations with page-level ones
-  window.pageTranslations = t;
-
-  // Apply page translations on lang change
-  function applyPageLang(lang) {
-    const dict = t[lang] || t.es;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (dict[key]) el.textContent = dict[key];
+  /* ════════════ Service card cursor track ════════════ */
+  document.querySelectorAll('.svc').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
     });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      if (dict[key]) el.placeholder = dict[key];
+  });
+
+  /* ════════════ Reveal observer ════════════ */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('shown'); obs.unobserve(e.target); }
     });
-    // Hero bio
-    const bio = document.getElementById('hero-bio');
-    if (bio) {
-      bio.textContent = lang === 'en'
-        ? "Automation Specialist focused on CX automation for ecommerce in LATAM. I design and implement systems with n8n, Shopify, Chatwoot and OpenAI. Morelos, México."
-        : "Automation Specialist especializado en CX automation para ecommerce en LATAM. Diseño e implemento sistemas con n8n, Shopify, Chatwoot y OpenAI. Morelos, México.";
-    }
-    const about = document.getElementById('about-text');
-    if (about) {
-      about.textContent = lang === 'en'
-        ? "Automation Specialist with 2+ years designing CX automation systems for ecommerce in LATAM. I build complex workflows with n8n, integrate Chatwoot + Shopify + Supabase, and deploy conversational AI with OpenAI. Currently CX Operations & Automation Specialist at Interprika, with active freelance projects at Jousfit, Valt and more."
-        : "Automation Specialist con 2+ años diseñando sistemas de CX automation para ecommerce en LATAM. Construyo workflows complejos con n8n, integro Chatwoot + Shopify + Supabase, y despliego soluciones de IA conversacional con OpenAI. Actualmente CX Operations & Automation Specialist en Interprika, con proyectos freelance activos en Jousfit, Valt y más.";
-    }
-  }
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  document.addEventListener('langchange', (e) => {
-    applyPageLang(e.detail.lang);
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const lang = localStorage.getItem('kq-lang') || 'es';
-    applyPageLang(lang);
-  });
-
-  // ── Typewriter ────────────────────────────────────────────────────────────
-  const roles = ["Automation Specialist", "CX Automation", "n8n Developer", "AI Integration"];
-  let roleIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  const el = document.getElementById('typewriter-text');
-
-  function typeWriter() {
-    if (!el) return;
-    const current = roles[roleIndex];
-    if (isDeleting) {
-      el.textContent = current.substring(0, charIndex - 1);
-      charIndex--;
-    } else {
-      el.textContent = current.substring(0, charIndex + 1);
-      charIndex++;
-    }
-
-    let speed = isDeleting ? 60 : 100;
-
-    if (!isDeleting && charIndex === current.length) {
-      speed = 2000;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
-      speed = 400;
-    }
-
-    setTimeout(typeWriter, speed);
-  }
-
-  setTimeout(typeWriter, 800);
-
-  // ── IntersectionObserver for fade-in ─────────────────────────────────────
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-  );
-
-  document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-    observer.observe(el);
-  });
+  /* ════════════ Nav spy ════════════ */
+  const navLinks = document.querySelectorAll('.nav-link');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
 </script>
