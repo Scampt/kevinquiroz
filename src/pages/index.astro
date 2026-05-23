@@ -607,34 +607,34 @@ import Layout from '../layouts/Layout.astro';
             <div class="ms-progress"><div class="ms-bar" id="ms-bar"></div></div>
             <div class="ms-nav">
               <span class="ms-counter"><span id="ms-cur">01</span> / 06</span>
-              <button class="ms-back" id="ms-back">← Atrás</button>
+              <button class="ms-back" id="ms-back" data-i18n="ms_back">← Atrás</button>
             </div>
 
             <!-- Step 1: Tipo de ecommerce -->
             <div class="ms-step active" data-step="1">
-              <p class="ms-q">¿Qué tipo de ecommerce tienes?</p>
+              <p class="ms-q" data-i18n="mq1">¿Qué tipo de ecommerce tienes?</p>
               <div class="ms-opts">
                 <button class="ms-opt" data-field="ecommerce" data-val="Shopify">Shopify</button>
                 <button class="ms-opt" data-field="ecommerce" data-val="WooCommerce">WooCommerce</button>
-                <button class="ms-opt" data-field="ecommerce" data-val="Otro (Tiendanube, VTEX...)">Otro</button>
-                <button class="ms-opt" data-field="ecommerce" data-val="Sin tienda aún">Aún no tengo</button>
+                <button class="ms-opt" data-field="ecommerce" data-val="Otro (Tiendanube, VTEX...)" data-i18n="mo_other_ec">Otro</button>
+                <button class="ms-opt" data-field="ecommerce" data-val="Sin tienda aún" data-i18n="mo_notyet">Aún no tengo</button>
               </div>
             </div>
 
             <!-- Step 2: Qué automatizar -->
             <div class="ms-step" data-step="2">
-              <p class="ms-q">¿Qué quieres automatizar?</p>
+              <p class="ms-q" data-i18n="mq2">¿Qué quieres automatizar?</p>
               <div class="ms-opts">
-                <button class="ms-opt" data-field="automatizar" data-val="Soporte al cliente (tickets, WhatsApp)">Soporte al cliente</button>
-                <button class="ms-opt" data-field="automatizar" data-val="Pedidos y logística">Pedidos y logística</button>
-                <button class="ms-opt" data-field="automatizar" data-val="Marketing y emails">Marketing y emails</button>
-                <button class="ms-opt" data-field="automatizar" data-val="Todo lo anterior">Todo lo anterior</button>
+                <button class="ms-opt" data-field="automatizar" data-val="Soporte al cliente (tickets, WhatsApp)" data-i18n="mo_support">Soporte al cliente</button>
+                <button class="ms-opt" data-field="automatizar" data-val="Pedidos y logística" data-i18n="mo_orders">Pedidos y logística</button>
+                <button class="ms-opt" data-field="automatizar" data-val="Marketing y emails" data-i18n="mo_marketing">Marketing y emails</button>
+                <button class="ms-opt" data-field="automatizar" data-val="Todo lo anterior" data-i18n="mo_all">Todo lo anterior</button>
               </div>
             </div>
 
             <!-- Step 3: Pedidos/mes -->
             <div class="ms-step" data-step="3">
-              <p class="ms-q">¿Cuántos pedidos al mes?</p>
+              <p class="ms-q" data-i18n="mq3">¿Cuántos pedidos al mes?</p>
               <div class="ms-opts">
                 <button class="ms-opt" data-field="pedidos" data-val="Menos de 100">&lt; 100</button>
                 <button class="ms-opt" data-field="pedidos" data-val="100 – 500">100 – 500</button>
@@ -645,29 +645,29 @@ import Layout from '../layouts/Layout.astro';
 
             <!-- Step 4: País/región -->
             <div class="ms-step" data-step="4">
-              <p class="ms-q">¿Dónde opera tu negocio?</p>
+              <p class="ms-q" data-i18n="mq4">¿Dónde opera tu negocio?</p>
               <div class="ms-opts">
-                <button class="ms-opt" data-field="pais" data-val="México">México</button>
+                <button class="ms-opt" data-field="pais" data-val="México" data-i18n="mo_mx">México</button>
                 <button class="ms-opt" data-field="pais" data-val="LATAM (Argentina, Colombia, Chile...)">LATAM</button>
                 <button class="ms-opt" data-field="pais" data-val="USA">USA</button>
-                <button class="ms-opt" data-field="pais" data-val="Otro">Otro</button>
+                <button class="ms-opt" data-field="pais" data-val="Otro" data-i18n="mo_other">Otro</button>
               </div>
             </div>
 
             <!-- Step 5: Presupuesto -->
             <div class="ms-step" data-step="5">
-              <p class="ms-q">¿Cuál es tu presupuesto mensual?</p>
+              <p class="ms-q" data-i18n="mq5">¿Cuál es tu presupuesto mensual?</p>
               <div class="ms-opts">
                 <button class="ms-opt" data-field="presupuesto" data-val="Menos de $500 USD">&lt; $500 USD</button>
                 <button class="ms-opt" data-field="presupuesto" data-val="$500 – $1,500 USD">$500 – $1,500</button>
                 <button class="ms-opt" data-field="presupuesto" data-val="$1,500 – $3,000 USD">$1,500 – $3,000</button>
-                <button class="ms-opt" data-field="presupuesto" data-val="Más de $3,000 / No sé aún">+$3,000 / No sé</button>
+                <button class="ms-opt" data-field="presupuesto" data-val="Más de $3,000 / No sé aún" data-i18n="mo_gt3k">+$3,000 / No sé</button>
               </div>
             </div>
 
             <!-- Step 6: Datos + comentarios -->
             <div class="ms-step" data-step="6">
-              <p class="ms-q">Ya casi. ¿Cómo te contactamos?</p>
+              <p class="ms-q" data-i18n="mq6">Ya casi. ¿Cómo te contactamos?</p>
               <div class="ms-inputs">
                 <div class="field">
                   <label data-i18n="f_name">Nombre</label>
@@ -678,12 +678,12 @@ import Layout from '../layouts/Layout.astro';
                   <input type="email" id="ms-email" placeholder="tu@email.com" />
                 </div>
                 <div class="field">
-                  <label>Comentarios (opcional)</label>
+                  <label data-i18n="f_comments">Comentarios (opcional)</label>
                   <textarea id="ms-msg" rows="3" placeholder="Contexto, plazo, dudas específicas..."></textarea>
                 </div>
               </div>
               <div class="submit-row">
-                <span class="small">RESPUESTA EN &lt; 24H</span>
+                <span class="small" data-i18n="f_small">RESPUESTA EN &lt; 24H</span>
                 <button type="button" class="btn btn-primary" id="ms-submit">
                   <span data-i18n="f_send">Enviar</span>
                   <span class="arr">↗</span>
@@ -695,8 +695,8 @@ import Layout from '../layouts/Layout.astro';
             <div class="ms-step" data-step="7">
               <div class="ms-thanks">
                 <div class="ms-thanks-ico">✓</div>
-                <h3 class="ms-thanks-title">¡Mensaje enviado!</h3>
-                <p class="ms-thanks-sub">Te respondo en menos de 24 horas.</p>
+                <h3 class="ms-thanks-title" data-i18n="ms_thanks_title">¡Mensaje enviado!</h3>
+                <p class="ms-thanks-sub" data-i18n="ms_thanks_sub">Te respondo en menos de 24 horas.</p>
               </div>
             </div>
           </div>
