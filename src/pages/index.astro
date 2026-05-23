@@ -362,23 +362,23 @@ import Layout from '../layouts/Layout.astro';
       <div class="gal-track">
         <div class="gal-slide active">
           <img src="/workflows/jousfit-1.png" alt="V2 Human Handoff — lógica de traspaso agente humano" loading="lazy" />
-          <div class="gal-caption">1 · V2 Human Handoff — traspaso inteligente al equipo humano</div>
+          <div class="gal-caption" data-i18n="gal_j1">1 · V2 Human Handoff — traspaso inteligente al equipo humano</div>
         </div>
         <div class="gal-slide">
           <img src="/workflows/jousfit-2.png" alt="V3 Orders — gestión completa de pedidos Shopify" loading="lazy" />
-          <div class="gal-caption">2 · V3 Orders — gestión de pedidos Shopify end-to-end</div>
+          <div class="gal-caption" data-i18n="gal_j2">2 · V3 Orders — gestión de pedidos Shopify end-to-end</div>
         </div>
         <div class="gal-slide">
           <img src="/workflows/jousfit-3.png" alt="Invoice Scrapper — extracción de facturas con IA" loading="lazy" />
-          <div class="gal-caption">3 · Invoice Scrapper — extracción automática de facturas con IA</div>
+          <div class="gal-caption" data-i18n="gal_j3">3 · Invoice Scrapper — extracción automática de facturas con IA</div>
         </div>
         <div class="gal-slide">
           <img src="/workflows/jousfit-4.png" alt="V18 AI Agent — agente conversacional con memoria" loading="lazy" />
-          <div class="gal-caption">4 · V18 AI Agent — agente IA con herramientas y memoria por cliente</div>
+          <div class="gal-caption" data-i18n="gal_j4">4 · V18 AI Agent — agente IA con herramientas y memoria por cliente</div>
         </div>
         <div class="gal-slide">
           <img src="/workflows/jousfit-5.png" alt="Puerta de Fraude — validación Shopify + Cubbo" loading="lazy" />
-          <div class="gal-caption">5 · Puerta de Fraude — validación pre-despacho Shopify + Cubbo</div>
+          <div class="gal-caption" data-i18n="gal_j5">5 · Puerta de Fraude — validación pre-despacho Shopify + Cubbo</div>
         </div>
       </div>
       <div class="gal-controls">
@@ -429,15 +429,15 @@ import Layout from '../layouts/Layout.astro';
       <div class="gal-track">
         <div class="gal-slide active">
           <img src="/workflows/bodas-1.png" alt="Workflow 1: Scraping Google Sheets → Monday.com" loading="lazy" />
-          <div class="gal-caption">1 · Scraping Google Sheets → Monday.com</div>
+          <div class="gal-caption" data-i18n="gal_b1">1 · Scraping Google Sheets → Monday.com</div>
         </div>
         <div class="gal-slide">
           <img src="/workflows/bodas-2.png" alt="Workflow 2: Emails por Estado del Lead" loading="lazy" />
-          <div class="gal-caption">2 · Secuencias de email por estado del lead</div>
+          <div class="gal-caption" data-i18n="gal_b2">2 · Secuencias de email por estado del lead</div>
         </div>
         <div class="gal-slide">
           <img src="/workflows/bodas-3.png" alt="Workflow 3: WhatsApp + Buffer Redis + IA" loading="lazy" />
-          <div class="gal-caption">3 · WhatsApp + Buffer Redis + Agente IA</div>
+          <div class="gal-caption" data-i18n="gal_b3">3 · WhatsApp + Buffer Redis + Agente IA</div>
         </div>
       </div>
       <div class="gal-controls">
@@ -1142,6 +1142,13 @@ a.note:hover { border-color: var(--orange, #ff7a3d); }
       if (!tpl) return;
       content.innerHTML = '';
       content.appendChild(tpl.content.cloneNode(true));
+      // Re-apply i18n to freshly cloned template content
+      if (window.currentLang === 'en' && window.T && window.T.en) {
+        content.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (window.T.en[key] !== undefined) el.innerHTML = window.T.en[key];
+        });
+      }
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
       initGallery();

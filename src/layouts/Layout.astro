@@ -190,7 +190,8 @@ const {
       /* ════════════ Lang toggle ════════════ */
       window.currentLang = localStorage.getItem('kq-lang-cosmos') || 'es';
 
-      const T = {
+      window.T = window.T || {};
+      const T = window.T = {
         es: {},
         en: {
           nav_about: "About", nav_services: "Services", nav_projects: "Projects", nav_notes: "Notes", nav_cta: "Contact",
@@ -276,6 +277,16 @@ const {
           mo_mx: "Mexico",
           mo_other: "Other",
           mo_gt3k: "+$3,000 / Not sure",
+          // Gallery captions — Jousfit
+          gal_j1: "1 · V2 Human Handoff — intelligent handoff to human team",
+          gal_j2: "2 · V3 Orders — Shopify end-to-end order management",
+          gal_j3: "3 · Invoice Scrapper — automatic AI-powered invoice extraction",
+          gal_j4: "4 · V18 AI Agent — AI agent with tools and per-customer memory",
+          gal_j5: "5 · Fraud Gate — Shopify + Cubbo pre-dispatch validation",
+          // Gallery captions — Bodas
+          gal_b1: "1 · Google Sheets scraping → Monday.com",
+          gal_b2: "2 · Email sequences by lead status",
+          gal_b3: "3 · WhatsApp + Redis Buffer + AI Agent",
           stack_h: "Tools of the <span class='grad'>craft.</span>",
           g_auto: "Automation", g_cx: "CX & Support", g_tools: "Tools",
           notes_h: "Technical <span class='grad'>notes.</span>",
