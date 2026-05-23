@@ -274,7 +274,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <span class="proj-num">01 · 2024–25</span>
           <h3>n8n JousFit</h3>
-          <p data-i18n="p2d">Fitness ecommerce CRM: Chatwoot V0–V10, buffer humano, detección de fraude Shopify e IA conversacional. Tiempo de respuesta de 4 horas a 12 minutos.</p>
+          <p data-i18n="p2d">Fitness ecommerce CRM: Chatwoot V0–V24, buffer humano, detección de fraude Shopify e IA conversacional. Tiempo de respuesta de 4 horas a 12 minutos.</p>
           <div class="tags"><span class="tag hot">n8n</span><span class="tag hot">OpenAI</span><span class="tag">Shopify</span><span class="tag">Chatwoot</span></div>
           <div class="proj-hint" data-i18n="proj_hint">Ver workflows →</div>
         </article>
@@ -369,20 +369,54 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <p class="modal-subtitle" data-i18n="m_jousfit_sub">CRM + Chatbot + Ecommerce Automation</p>
     </div>
-    <div class="modal-placeholder">
-      <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24" opacity="0.3"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17 14 v3 h3"/><path d="M14 17 h3"/></svg>
-      <p data-i18n="m_wf_soon">Screenshots de workflows próximamente</p>
-      <span class="modal-wf-count">68+ workflows activos</span>
+    <div class="modal-gallery" id="modal-gallery-jousfit">
+      <div class="gal-track">
+        <div class="gal-slide active">
+          <img src="/workflows/jousfit-1.png" alt="V2 Human Handoff — lógica de traspaso agente humano" loading="lazy" />
+          <div class="gal-caption">1 · V2 Human Handoff — traspaso inteligente al equipo humano</div>
+        </div>
+        <div class="gal-slide">
+          <img src="/workflows/jousfit-2.png" alt="V3 Orders — gestión completa de pedidos Shopify" loading="lazy" />
+          <div class="gal-caption">2 · V3 Orders — gestión de pedidos Shopify end-to-end</div>
+        </div>
+        <div class="gal-slide">
+          <img src="/workflows/jousfit-3.png" alt="Invoice Scrapper — extracción de facturas con IA" loading="lazy" />
+          <div class="gal-caption">3 · Invoice Scrapper — extracción automática de facturas con IA</div>
+        </div>
+        <div class="gal-slide">
+          <img src="/workflows/jousfit-4.png" alt="V18 AI Agent — agente conversacional con memoria" loading="lazy" />
+          <div class="gal-caption">4 · V18 AI Agent — agente IA con herramientas y memoria por cliente</div>
+        </div>
+        <div class="gal-slide">
+          <img src="/workflows/jousfit-5.png" alt="Puerta de Fraude — validación Shopify + Cubbo" loading="lazy" />
+          <div class="gal-caption">5 · Puerta de Fraude — validación pre-despacho Shopify + Cubbo</div>
+        </div>
+      </div>
+      <div class="gal-controls">
+        <button class="gal-btn gal-prev" aria-label="Anterior">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="gal-dots">
+          <span class="gal-dot active"></span>
+          <span class="gal-dot"></span>
+          <span class="gal-dot"></span>
+          <span class="gal-dot"></span>
+          <span class="gal-dot"></span>
+        </div>
+        <button class="gal-btn gal-next" aria-label="Siguiente">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
     <div class="modal-body">
-      <p data-i18n="m_jousfit_desc">Sistema CRM completo para fitness ecommerce. Implementé Chatwoot desde V0 a V10 con buffer humano en Redis, detección de fraude en pedidos Shopify y un agente de IA conversacional con memoria persistente por cliente. El tiempo de primera respuesta pasó de 4 horas a 12 minutos.</p>
+      <p data-i18n="m_jousfit_desc">Sistema CRM completo para fitness ecommerce. 68+ workflows en producción: chatbot V0–V24 en Chatwoot con buffer humano en Redis, detección de fraude en pedidos Shopify + Cubbo, agente IA conversacional con memoria persistente por cliente, y extracción de facturas con OpenAI. Tiempo de primera respuesta: de 4h a 12min.</p>
       <div class="modal-metrics">
         <div class="modal-metric"><span class="mm-n">4h → 12min</span><span class="mm-l" data-i18n="m_response">Tiempo de respuesta</span></div>
         <div class="modal-metric"><span class="mm-n">68+</span><span class="mm-l" data-i18n="m_wf">Workflows</span></div>
-        <div class="modal-metric"><span class="mm-n">V0→V10</span><span class="mm-l">Chatwoot</span></div>
+        <div class="modal-metric"><span class="mm-n">V0→V24</span><span class="mm-l">Chatwoot</span></div>
       </div>
       <div class="modal-stack-row">
-        <span class="tag hot">n8n</span><span class="tag hot">OpenAI</span><span class="tag">Chatwoot</span><span class="tag">Shopify</span><span class="tag">Supabase</span><span class="tag">Redis</span><span class="tag">WhatsApp API</span>
+        <span class="tag hot">n8n</span><span class="tag hot">OpenAI</span><span class="tag">Chatwoot</span><span class="tag">Shopify</span><span class="tag">Supabase</span><span class="tag">Redis</span><span class="tag">WhatsApp API</span><span class="tag">Cubbo</span>
       </div>
     </div>
     <div class="modal-foot">
