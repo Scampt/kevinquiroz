@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://kevinquiroz.com/sitemap.xml
+Sitemap: https://kevinquiroz.com/sitemap-index.xml

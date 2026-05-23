@@ -190,7 +190,10 @@ nav.nav.scrolled {
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.1em;
-  padding: 5px 11px;
+  padding: 10px 14px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
   background: transparent;
   border: 0; color: var(--muted);
   cursor: pointer; border-radius: 999px;
@@ -676,7 +679,7 @@ nav.nav.scrolled {
 }
 
 @media (max-width: 980px) {
-  .hero-right { max-width: 400px; margin: 0 auto; }
+  .hero-right { max-width: 400px; margin: 0 auto; overflow: clip; }
   .hero-stat.s1 { left: 4%; top: 4%; }
   .hero-stat.s2 { left: -2%; top: 30%; }
   .hero-stat.s3 { right: 4%; top: 2%; }
