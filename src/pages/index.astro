@@ -496,7 +496,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="stack-pills">
             <span class="pill aqua">Chatwoot</span>
             <span class="pill aqua">Supabase</span>
-            <span class="pill aqua">Shopify Plus</span>
+            <span class="pill aqua">Monday.com</span>
             <span class="pill aqua">WhatsApp API</span>
           </div>
         </div>
@@ -551,24 +551,24 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="notes-grid">
-        <article class="note reveal">
+        <a class="note reveal" href="/notes/n8n-vs-make-produccion">
           <div class="cat"><span class="dot fire"></span>Automation · 15 May 2026</div>
           <h3 data-i18n="n1t">Por qué n8n ganó la guerra del no-code en producción</h3>
           <p data-i18n="n1e">Trade-offs reales entre n8n self-hosted y Make cuando tu workflow corre 24/7 con ecommerce en juego.</p>
           <div class="meta"><span>8 MIN</span><span>→</span></div>
-        </article>
-        <article class="note reveal">
+        </a>
+        <a class="note reveal" href="/notes/chatwoot-n8n-stack-soporte">
           <div class="cat"><span class="dot aqua"></span>CX · 02 May 2026</div>
           <h3 data-i18n="n2t">Chatwoot + n8n: el stack de soporte que uso en producción</h3>
           <p data-i18n="n2e">Cómo automatizar tickets, escalar a humano y medir tiempo de primera respuesta en ecommerce.</p>
           <div class="meta"><span>12 MIN</span><span>→</span></div>
-        </article>
-        <article class="note reveal">
+        </a>
+        <a class="note reveal" href="/notes/openai-n8n-pipelines-confiables">
           <div class="cat"><span class="dot violet"></span>AI · 19 Apr 2026</div>
           <h3 data-i18n="n3t">OpenAI dentro de n8n: arquitectura para pipelines confiables</h3>
           <p data-i18n="n3e">Reintentos, validación de salidas, costos predecibles con un LLM en medio del flujo de soporte.</p>
           <div class="meta"><span>10 MIN</span><span>→</span></div>
-        </article>
+        </a>
       </div>
     </div>
   </section>
@@ -602,27 +602,104 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
 
-          <form class="contact-form" action="https://formspree.io/f/mayzpleg" method="POST">
-            <div class="field">
-              <label data-i18n="f_name">Nombre</label>
-              <input type="text" name="name" required placeholder="Tu nombre" />
+          <!-- Multi-step contact form -->
+          <div class="ms-form" id="ms-form">
+            <div class="ms-progress"><div class="ms-bar" id="ms-bar"></div></div>
+            <div class="ms-nav">
+              <span class="ms-counter"><span id="ms-cur">01</span> / 06</span>
+              <button class="ms-back" id="ms-back">← Atrás</button>
             </div>
-            <div class="field">
-              <label data-i18n="f_mail">Email</label>
-              <input type="email" name="email" required placeholder="tu@email.com" />
+
+            <!-- Step 1: Tipo de ecommerce -->
+            <div class="ms-step active" data-step="1">
+              <p class="ms-q">¿Qué tipo de ecommerce tienes?</p>
+              <div class="ms-opts">
+                <button class="ms-opt" data-field="ecommerce" data-val="Shopify">Shopify</button>
+                <button class="ms-opt" data-field="ecommerce" data-val="WooCommerce">WooCommerce</button>
+                <button class="ms-opt" data-field="ecommerce" data-val="Otro (Tiendanube, VTEX...)">Otro</button>
+                <button class="ms-opt" data-field="ecommerce" data-val="Sin tienda aún">Aún no tengo</button>
+              </div>
             </div>
-            <div class="field">
-              <label data-i18n="f_msg">Proyecto</label>
-              <textarea name="message" rows="5" required placeholder="Cuéntame qué necesitas, plazos, presupuesto si lo tienes..."></textarea>
+
+            <!-- Step 2: Qué automatizar -->
+            <div class="ms-step" data-step="2">
+              <p class="ms-q">¿Qué quieres automatizar?</p>
+              <div class="ms-opts">
+                <button class="ms-opt" data-field="automatizar" data-val="Soporte al cliente (tickets, WhatsApp)">Soporte al cliente</button>
+                <button class="ms-opt" data-field="automatizar" data-val="Pedidos y logística">Pedidos y logística</button>
+                <button class="ms-opt" data-field="automatizar" data-val="Marketing y emails">Marketing y emails</button>
+                <button class="ms-opt" data-field="automatizar" data-val="Todo lo anterior">Todo lo anterior</button>
+              </div>
             </div>
-            <div class="submit-row">
-              <span class="small" data-i18n="f_small">RESPUESTA EN &lt; 24H</span>
-              <button type="submit" class="btn btn-primary">
-                <span data-i18n="f_send">Enviar</span>
-                <span class="arr">↗</span>
-              </button>
+
+            <!-- Step 3: Pedidos/mes -->
+            <div class="ms-step" data-step="3">
+              <p class="ms-q">¿Cuántos pedidos al mes?</p>
+              <div class="ms-opts">
+                <button class="ms-opt" data-field="pedidos" data-val="Menos de 100">&lt; 100</button>
+                <button class="ms-opt" data-field="pedidos" data-val="100 – 500">100 – 500</button>
+                <button class="ms-opt" data-field="pedidos" data-val="500 – 2,000">500 – 2,000</button>
+                <button class="ms-opt" data-field="pedidos" data-val="Más de 2,000">+2,000</button>
+              </div>
             </div>
-          </form>
+
+            <!-- Step 4: País/región -->
+            <div class="ms-step" data-step="4">
+              <p class="ms-q">¿Dónde opera tu negocio?</p>
+              <div class="ms-opts">
+                <button class="ms-opt" data-field="pais" data-val="México">México</button>
+                <button class="ms-opt" data-field="pais" data-val="LATAM (Argentina, Colombia, Chile...)">LATAM</button>
+                <button class="ms-opt" data-field="pais" data-val="USA">USA</button>
+                <button class="ms-opt" data-field="pais" data-val="Otro">Otro</button>
+              </div>
+            </div>
+
+            <!-- Step 5: Presupuesto -->
+            <div class="ms-step" data-step="5">
+              <p class="ms-q">¿Cuál es tu presupuesto mensual?</p>
+              <div class="ms-opts">
+                <button class="ms-opt" data-field="presupuesto" data-val="Menos de $500 USD">&lt; $500 USD</button>
+                <button class="ms-opt" data-field="presupuesto" data-val="$500 – $1,500 USD">$500 – $1,500</button>
+                <button class="ms-opt" data-field="presupuesto" data-val="$1,500 – $3,000 USD">$1,500 – $3,000</button>
+                <button class="ms-opt" data-field="presupuesto" data-val="Más de $3,000 / No sé aún">+$3,000 / No sé</button>
+              </div>
+            </div>
+
+            <!-- Step 6: Datos + comentarios -->
+            <div class="ms-step" data-step="6">
+              <p class="ms-q">Ya casi. ¿Cómo te contactamos?</p>
+              <div class="ms-inputs">
+                <div class="field">
+                  <label data-i18n="f_name">Nombre</label>
+                  <input type="text" id="ms-name" placeholder="Tu nombre" />
+                </div>
+                <div class="field">
+                  <label data-i18n="f_mail">Email</label>
+                  <input type="email" id="ms-email" placeholder="tu@email.com" />
+                </div>
+                <div class="field">
+                  <label>Comentarios (opcional)</label>
+                  <textarea id="ms-msg" rows="3" placeholder="Contexto, plazo, dudas específicas..."></textarea>
+                </div>
+              </div>
+              <div class="submit-row">
+                <span class="small">RESPUESTA EN &lt; 24H</span>
+                <button type="button" class="btn btn-primary" id="ms-submit">
+                  <span data-i18n="f_send">Enviar</span>
+                  <span class="arr">↗</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 7: Gracias -->
+            <div class="ms-step" data-step="7">
+              <div class="ms-thanks">
+                <div class="ms-thanks-ico">✓</div>
+                <h3 class="ms-thanks-title">¡Mensaje enviado!</h3>
+                <p class="ms-thanks-sub">Te respondo en menos de 24 horas.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -956,6 +1033,51 @@ import Layout from '../layouts/Layout.astro';
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 .modal-link:hover { background: var(--bg-3); border-color: var(--text); }
+
+/* ════════════ Multi-step contact form ════════════ */
+.ms-form { display: flex; flex-direction: column; min-height: 340px; }
+.ms-progress { height: 2px; background: var(--line); border-radius: 2px; margin-bottom: 12px; overflow: hidden; }
+.ms-bar { height: 100%; background: var(--orange); border-radius: 2px; transition: width 0.35s ease; width: 16.6%; }
+.ms-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.ms-counter { font-size: 11px; font-family: var(--mono); color: var(--muted); letter-spacing: 0.08em; }
+.ms-back {
+  font-size: 11px; font-family: var(--mono); color: var(--muted);
+  background: none; border: none; cursor: pointer; padding: 4px 8px;
+  border-radius: 6px; transition: color 0.15s ease, background 0.15s ease;
+  letter-spacing: 0.06em; visibility: hidden;
+}
+.ms-back.vis { visibility: visible; }
+.ms-back:hover { color: var(--text); background: var(--glass); }
+.ms-step { display: none; flex-direction: column; flex: 1; }
+.ms-step.active { display: flex; }
+.ms-q { font-size: 15px; font-weight: 600; color: var(--text); margin: 0 0 16px; line-height: 1.4; }
+.ms-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ms-opt {
+  padding: 13px 14px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--glass); color: var(--text); font-size: 13px;
+  text-align: left; cursor: pointer; line-height: 1.3;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.ms-opt:hover { border-color: var(--orange); background: var(--bg-3); }
+.ms-opt.sel { border-color: var(--orange); background: rgba(255,122,61,0.1); color: var(--orange); }
+.ms-inputs { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+.ms-thanks { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 40px 20px; text-align: center; flex: 1; }
+.ms-thanks-ico {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,122,61,0.15); border: 1px solid var(--orange);
+  color: var(--orange); display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700;
+}
+.ms-thanks-title { font-size: 18px; font-weight: 700; color: var(--text); margin: 0; }
+.ms-thanks-sub { font-size: 13px; color: var(--muted); margin: 0; }
+
+/* Notes cards as links */
+a.note { text-decoration: none; display: block; cursor: pointer; }
+a.note:hover { border-color: var(--orange, #ff7a3d); }
+
+@media (max-width: 480px) {
+  .ms-opts { grid-template-columns: 1fr; }
+}
 </style>
 
 <script is:inline>
@@ -1066,5 +1188,77 @@ import Layout from '../layouts/Layout.astro';
     closeBtn?.addEventListener('click', closeModal);
     overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+  })();
+
+  /* ════════════ Multi-step contact form ════════════ */
+  (function() {
+    const form = document.getElementById('ms-form');
+    if (!form) return;
+    const bar    = document.getElementById('ms-bar');
+    const curEl  = document.getElementById('ms-cur');
+    const backBtn = document.getElementById('ms-back');
+    const submitBtn = document.getElementById('ms-submit');
+    const TOTAL = 6;
+    let step = 1;
+    const answers = {};
+
+    function showStep(n) {
+      form.querySelectorAll('.ms-step').forEach(s => s.classList.remove('active'));
+      const target = form.querySelector(`.ms-step[data-step="${n}"]`);
+      if (target) target.classList.add('active');
+      if (curEl) curEl.textContent = String(n).padStart(2, '0');
+      if (bar) bar.style.width = (Math.min(n, TOTAL) / TOTAL * 100) + '%';
+      if (backBtn) {
+        if (n > 1 && n <= TOTAL) backBtn.classList.add('vis');
+        else backBtn.classList.remove('vis');
+      }
+      step = n;
+    }
+
+    form.querySelectorAll('.ms-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const field = btn.dataset.field;
+        form.querySelectorAll(`.ms-opt[data-field="${field}"]`).forEach(b => b.classList.remove('sel'));
+        btn.classList.add('sel');
+        answers[field] = btn.dataset.val;
+        setTimeout(() => showStep(step + 1), 260);
+      });
+    });
+
+    backBtn?.addEventListener('click', () => { if (step > 1) showStep(step - 1); });
+
+    submitBtn?.addEventListener('click', async () => {
+      const name  = document.getElementById('ms-name')?.value.trim();
+      const email = document.getElementById('ms-email')?.value.trim();
+      const msg   = document.getElementById('ms-msg')?.value.trim();
+      if (!name || !email) {
+        if (!name) document.getElementById('ms-name')?.focus();
+        else document.getElementById('ms-email')?.focus();
+        return;
+      }
+      const origText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+      try {
+        const res = await fetch('https://formspree.io/f/mayzpleg', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            name, email,
+            _subject: `Lead — ${answers.ecommerce || '?'} · ${answers.automatizar || '?'} · ${answers.pais || '?'}`,
+            ecommerce:   answers.ecommerce   || '—',
+            automatizar: answers.automatizar || '—',
+            pedidos_mes: answers.pedidos     || '—',
+            pais:        answers.pais        || '—',
+            presupuesto: answers.presupuesto || '—',
+            comentarios: msg || '—'
+          })
+        });
+        if (res.ok) { showStep(7); }
+        else { submitBtn.disabled = false; submitBtn.innerHTML = origText; }
+      } catch { submitBtn.disabled = false; submitBtn.innerHTML = origText; }
+    });
+
+    showStep(1);
   })();
 </script>

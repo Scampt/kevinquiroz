@@ -1,0 +1,175 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { title, description, date, category, readTime, tags } = post.data;
+
+const catColor: Record<string, string> = {
+  Automation: 'fire',
+  CX: 'aqua',
+  AI: 'violet',
+};
+const dot = catColor[category] ?? '';
+---
+
+<Layout
+  title={`${title} — Kevin Quiroz`}
+  description={description}
+  canonical={`https://kevinquiroz.com/notes/${post.slug}`}
+>
+  <section class="post-section">
+    <div class="container post-container">
+
+      <header class="post-header reveal">
+        <a href="/#notes" class="post-back">← Notas</a>
+        <div class="post-meta-row">
+          <span class={`dot ${dot}`}></span>
+          <span class="post-cat">{category}</span>
+          <span class="post-sep">·</span>
+          <span class="post-date">{date}</span>
+          <span class="post-sep">·</span>
+          <span class="post-read">{readTime} MIN</span>
+        </div>
+        <h1 class="post-title">{title}</h1>
+        <p class="post-desc">{description}</p>
+        {tags && (
+          <div class="post-tags">
+            {tags.map(t => <span class="tag">{t}</span>)}
+          </div>
+        )}
+      </header>
+
+      <div class="post-body reveal prose">
+        <Content />
+      </div>
+
+      <footer class="post-footer reveal">
+        <div class="post-footer-inner">
+          <a href="/#notes" class="btn btn-ghost">← Todas las notas</a>
+          <a href="/#contact" class="btn btn-primary">
+            <span>Hablemos</span>
+            <span class="arr">↗</span>
+          </a>
+        </div>
+      </footer>
+
+    </div>
+  </section>
+</Layout>
+
+<style is:global>
+.post-section {
+  padding: 80px 0 120px;
+}
+.post-container {
+  max-width: 720px;
+}
+.post-back {
+  display: inline-block;
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  margin-bottom: 32px;
+  transition: color 0.15s ease;
+}
+.post-back:hover { color: var(--text); }
+.post-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.post-cat, .post-date, .post-read {
+  font-size: 11px;
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.post-sep { color: var(--line); font-size: 10px; }
+.post-title {
+  font-size: clamp(26px, 5vw, 40px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+.post-desc {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+.post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 48px; }
+
+/* Prose — blog body */
+.prose {
+  border-top: 1px solid var(--line);
+  padding-top: 40px;
+}
+.prose h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 40px 0 14px;
+}
+.prose h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 28px 0 10px;
+}
+.prose p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-soft, var(--text));
+  margin: 0 0 18px;
+}
+.prose ul, .prose ol {
+  padding-left: 20px;
+  margin: 0 0 18px;
+}
+.prose li {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-soft, var(--text));
+  margin-bottom: 6px;
+}
+.prose strong { color: var(--text); font-weight: 600; }
+.prose code {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 6px;
+  color: var(--orange);
+}
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 40px 0;
+}
+.prose em { color: var(--muted); font-style: italic; }
+.prose blockquote {
+  border-left: 3px solid var(--orange);
+  padding-left: 16px;
+  margin: 24px 0;
+  color: var(--muted);
+}
+
+.post-footer { margin-top: 64px; border-top: 1px solid var(--line); padding-top: 32px; }
+.post-footer-inner { display: flex; gap: 12px; flex-wrap: wrap; }
+</style>
