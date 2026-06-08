@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
-const { title, description, date, category, readTime, tags } = post.data;
+const { title, description, date, category, readTime, tags, cover, coverAlt } = post.data;
 
 const catColor: Record<string, string> = {
   Automation: 'fire',
@@ -48,6 +48,12 @@ const dot = catColor[category] ?? '';
           </div>
         )}
       </header>
+
+      {cover && (
+        <figure class="post-cover reveal">
+          <img src={cover} alt={coverAlt ?? title} loading="eager" decoding="async" />
+        </figure>
+      )}
 
       <div class="post-body reveal prose">
         <Content />
@@ -114,6 +120,20 @@ const dot = catColor[category] ?? '';
 }
 .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 48px; }
 
+/* Cover — imagen de portada (reutiliza el meme/carrusel del post) */
+.post-cover {
+  margin: 0 0 8px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-3);
+}
+.post-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* Prose — blog body */
 .prose {
   border-top: 1px solid var(--line);
@@ -163,6 +183,23 @@ const dot = catColor[category] ?? '';
   margin: 40px 0;
 }
 .prose em { color: var(--muted); font-style: italic; }
+.prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  margin: 28px 0;
+}
+.prose figure { margin: 28px 0; }
+.prose figure img { margin: 0; }
+.prose figcaption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 10px;
+}
 .prose blockquote {
   border-left: 3px solid var(--orange);
   padding-left: 16px;

@@ -5,6 +5,8 @@ date: "08 Jun 2026"
 category: "Automation"
 readTime: 6
 tags: ["n8n", "automatizacion", "QA", "workflows", "validacion", "alertas"]
+cover: "/covers/status-200.png"
+coverAlt: "Meme: un dev frente a monitores con un enredo caótico en pantalla mientras el status muestra 200"
 draft: false
 ---
 Un status 200 no significa que tu automatización funcionó. Significa que no explotó.

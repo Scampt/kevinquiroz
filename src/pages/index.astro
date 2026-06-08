@@ -1,5 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getPublishedNotes, catDot } from '../utils/notes';
+
+const latestNotes = (await getPublishedNotes()).slice(0, 3);
 ---
 
 <Layout>
@@ -550,24 +553,18 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <div class="notes-grid">
-        <a class="note reveal" href="/notes/n8n-vs-make-produccion">
-          <div class="cat"><span class="dot fire"></span>Automation · 15 May 2026</div>
-          <h3 data-i18n="n1t">Por qué n8n ganó la guerra del no-code en producción</h3>
-          <p data-i18n="n1e">Trade-offs reales entre n8n self-hosted y Make cuando tu workflow corre 24/7 con ecommerce en juego.</p>
-          <div class="meta"><span>8 MIN</span><span>→</span></div>
-        </a>
-        <a class="note reveal" href="/notes/chatwoot-n8n-stack-soporte">
-          <div class="cat"><span class="dot aqua"></span>CX · 02 May 2026</div>
-          <h3 data-i18n="n2t">Chatwoot + n8n: el stack de soporte que uso en producción</h3>
-          <p data-i18n="n2e">Cómo automatizar tickets, escalar a humano y medir tiempo de primera respuesta en ecommerce.</p>
-          <div class="meta"><span>12 MIN</span><span>→</span></div>
-        </a>
-        <a class="note reveal" href="/notes/openai-n8n-pipelines-confiables">
-          <div class="cat"><span class="dot violet"></span>AI · 19 Apr 2026</div>
-          <h3 data-i18n="n3t">OpenAI dentro de n8n: arquitectura para pipelines confiables</h3>
-          <p data-i18n="n3e">Reintentos, validación de salidas, costos predecibles con un LLM en medio del flujo de soporte.</p>
-          <div class="meta"><span>10 MIN</span><span>→</span></div>
-        </a>
+        {latestNotes.map(note => (
+          <a class="note reveal" href={`/notes/${note.slug}`}>
+            <div class="cat"><span class={`dot ${catDot[note.data.category] ?? ''}`}></span>{note.data.category} · {note.data.date}</div>
+            <h3>{note.data.title}</h3>
+            <p>{note.data.description}</p>
+            <div class="meta"><span>{note.data.readTime} MIN</span><span>→</span></div>
+          </a>
+        ))}
+      </div>
+
+      <div class="notes-all reveal">
+        <a href="/blog" class="notes-all-link" data-i18n="notes_all">Ver todas las notas →</a>
       </div>
     </div>
   </section>

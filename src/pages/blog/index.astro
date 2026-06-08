@@ -1,43 +1,22 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getPublishedNotes, catTag } from '../../utils/notes';
 
-const posts = [
-  {
-    id: '001',
-    date: '15 · MAY · 2026',
-    titleEs: 'Por qué n8n ganó la guerra del no-code en producción',
-    titleEn: 'Why n8n won the no-code war in production',
-    excerptEs: 'Las trade-offs reales entre n8n self-hosted, Zapier y Make cuando tu workflow corre 24/7 y un fallo cuesta dinero.',
-    excerptEn: 'The real trade-offs between self-hosted n8n, Zapier and Make when your workflow runs 24/7 and a failure costs money.',
-    category: 'Automation',
-    tagClass: 'tag-accent',
-    readTime: '8 min',
-  },
-  {
-    id: '002',
-    date: '02 · MAY · 2026',
-    titleEs: 'Testing de workflows: la matriz que uso para no romper producción',
-    titleEn: 'Workflow testing: the matrix I use to keep production safe',
-    excerptEs: 'Pruebas unitarias, smoke tests y rollback plans aplicados a automatizaciones — porque "funciona en mi pantalla" no aplica cuando hay webhooks de por medio.',
-    excerptEn: 'Unit tests, smoke tests and rollback plans applied to automations — because "works on my screen" doesn\'t fly with webhooks involved.',
-    category: 'QA',
-    tagClass: 'tag',
-    readTime: '12 min',
-  },
-  {
-    id: '003',
-    date: '19 · ABR · 2026',
-    titleEs: 'OpenAI dentro de n8n: arquitectura para pipelines confiables',
-    titleEn: 'OpenAI inside n8n: architecture for reliable pipelines',
-    excerptEs: 'Cómo estructurar reintentos, validación de salidas y costos predecibles al meter un LLM en medio de un flujo de negocio crítico.',
-    excerptEn: 'How to structure retries, output validation and predictable costs when an LLM sits in the middle of a critical business flow.',
-    category: 'AI',
-    tagClass: 'tag-warm',
-    readTime: '10 min',
-  },
-];
+// Fuente única: las notas vienen de src/content/blog/*.md (sin hardcode).
+const notes = await getPublishedNotes();
+const posts = notes.map((note, i) => ({
+  id: String(i + 1).padStart(3, '0'),
+  slug: note.slug,
+  date: note.data.date,
+  title: note.data.title,
+  excerpt: note.data.description,
+  category: note.data.category,
+  tagClass: catTag[note.data.category] ?? 'tag',
+  readTime: `${note.data.readTime} min`,
+}));
 
-const categories = ['All', 'Automation', 'QA', 'AI', 'Frontend', 'Tools'];
+// Filtros = categorías presentes en las notas (más "All" al frente).
+const categories = ['All', ...Array.from(new Set(notes.map(n => n.data.category)))];
 ---
 
 <Layout
@@ -77,12 +56,12 @@ const categories = ['All', 'Automation', 'QA', 'AI', 'Frontend', 'Tools'];
 
       <div class="blog-list fade-in">
         {posts.map(post => (
-          <a href={`#${post.id}`} id={post.id} class="blog-row" data-cat={post.category}>
+          <a href={`/notes/${post.slug}`} id={post.id} class="blog-row" data-cat={post.category}>
             <span class="col-num">{post.id}</span>
             <span class="col-date">{post.date}</span>
             <h3 class="col-title">
-              <span data-i18n={`post${post.id}_title`} data-en={post.titleEn}>{post.titleEs}</span>
-              <span class="excerpt" data-i18n={`post${post.id}_excerpt`} data-en={post.excerptEn}>{post.excerptEs}</span>
+              <span>{post.title}</span>
+              <span class="excerpt">{post.excerpt}</span>
               <span class="font-mono text-[10px] text-[var(--kq-muted2)] mt-2 inline-flex items-center gap-3" style="letter-spacing:.1em">
                 <span>· {post.readTime} read</span>
               </span>
@@ -93,17 +72,6 @@ const categories = ['All', 'Automation', 'QA', 'AI', 'Frontend', 'Tools'];
             </span>
           </a>
         ))}
-
-        <!-- Empty-state row: signaling more is coming -->
-        <div class="grid grid-cols-[60px_110px_1fr_140px_40px] gap-7 items-baseline py-7 border-b border-[var(--kq-border)] opacity-50" style="--placeholder: 1;">
-          <span class="col-num font-mono text-[12px] text-[var(--kq-muted3)]">004</span>
-          <span class="font-mono text-[12px] text-[var(--kq-muted3)]">— · — · 2026</span>
-          <h3 class="font-display text-[20px] text-[var(--kq-muted)] m-0" style="font-weight: 400; letter-spacing: -0.01em;" data-i18n="blog_soon">
-            Próximamente · más notas en camino
-          </h3>
-          <span></span>
-          <span></span>
-        </div>
       </div>
 
       <!-- Newsletter teaser -->
@@ -142,7 +110,7 @@ const categories = ['All', 'Automation', 'QA', 'AI', 'Frontend', 'Tools'];
           ← <span data-i18n="back_home">Volver al inicio</span>
         </a>
         <span class="font-mono text-[11px] text-[var(--kq-muted2)] tracking-wider">
-          <span data-i18n="blog_count">3 notas publicadas</span> · <span data-i18n="more_coming">más por venir</span>
+          {posts.length} <span data-i18n="blog_count_label">notas publicadas</span> · <span data-i18n="more_coming">más por venir</span>
         </span>
       </div>
     </div>
@@ -162,7 +130,7 @@ const categories = ['All', 'Automation', 'QA', 'AI', 'Frontend', 'Tools'];
       newsletter_desc: "Una o dos veces al mes. Solo cuando publico algo que vale la pena leer.",
       newsletter_submit: "Suscribirme",
       back_home: "Volver al inicio",
-      blog_count: "3 notas publicadas",
+      blog_count_label: "notas publicadas",
       more_coming: "más por venir"
     },
     en: {
@@ -175,42 +143,26 @@ const categories = ['All', 'Automation', 'QA', 'AI', 'Frontend', 'Tools'];
       newsletter_desc: "Once or twice a month. Only when I publish something worth reading.",
       newsletter_submit: "Subscribe",
       back_home: "Back to home",
-      blog_count: "3 notes published",
+      blog_count_label: "notes published",
       more_coming: "more coming"
     }
   };
   const HTML_KEYS_BLOG = new Set(['blog_h1']);
 
+  // Las notas son contenido en español (la página /notes/<slug> es ES).
+  // El toggle de idioma solo traduce el "chrome" del archivo (encabezado,
+  // intro, newsletter); los títulos/excerpts se quedan en ES.
   function applyBlogLang(lang) {
     const dict = tBlog[lang] || tBlog.es;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      // Post-specific titles/excerpts use data-en attribute
-      if (key && key.startsWith('post') && lang === 'en' && el.hasAttribute('data-en')) {
-        el.textContent = el.getAttribute('data-en');
-        return;
-      }
       if (!dict[key]) return;
       if (HTML_KEYS_BLOG.has(key)) el.innerHTML = dict[key];
       else el.textContent = dict[key];
     });
-    // Restore ES post text on switch back: the original textContent is in the markup.
-    if (lang === 'es') {
-      document.querySelectorAll('[data-en]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        // ES is in the source HTML — refresh by re-reading the data attribute fallback
-        if (el.dataset.es) el.textContent = el.dataset.es;
-      });
-    }
   }
 
-  // Cache the ES content before any translation runs
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-en]').forEach(el => {
-      if (!el.dataset.es) el.dataset.es = el.textContent;
-    });
-    applyBlogLang(window.currentLang || 'es');
-  });
+  document.addEventListener('DOMContentLoaded', () => applyBlogLang(window.currentLang || 'es'));
   document.addEventListener('langchange', (e) => applyBlogLang(e.detail.lang));
 
   // ─── Fade-in observer ─────────────────────────────────────────
