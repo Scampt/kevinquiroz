@@ -5,6 +5,8 @@ date: "15 Jun 2026"
 category: "Automation"
 readTime: 9
 tags: ["automatizacion", "n8n", "eficiencia", "productividad", "datos", "CX"]
+cover: "/covers/copiar-datos-a-mano-a-las-3-am.png"
+coverAlt: "Copiar datos a mano a las 3 AM"
 draft: false
 ---
 A todos nos ha pasado: son las 3 de la mañana, y estamos copiando datos manualmente. ¿Por qué seguimos haciendo esto en plena era de la automatización? La buena noticia es que hay formas de librarnos de estas trasnochadas y ganar eficiencia.
